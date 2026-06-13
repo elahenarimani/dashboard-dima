@@ -1,0 +1,70 @@
+import type { Order } from "../types/orderList";
+
+export const data: Order[] = [
+    {
+      id: 1,
+      name: "Ali",
+      address: "gfggfhfjj",
+      date: "2.23.1399",
+      type: "Book & Stationary",
+      status: "Completed",
+    },
+    {
+      id: 2,
+      name: "Sara",
+      address: "gfggfhfjj",
+      date: "2.23.1399",
+      type: "Book & Stationary",
+      status: "Completed",
+    },
+    {
+      id: 3,
+      name: "Reza",
+      address: "gfggfhfjj",
+      date: "2.23.1399",
+      type: "Book & Stationary",
+      status: "Completed",
+    },
+    {
+      id: 4,
+      name: "Mina",
+      address: "gfggfhfjj",
+      date: "2.23.1399",
+      type: "Book & Stationary",
+      status: "Completed",
+    },
+    {
+      id: 5,
+      name: "John",
+      address: "gfggfhfjj",
+      date: "2.23.1399",
+      type: "Book & Stationary",
+      status: "Completed",
+    },
+    {
+      id: 6,
+      name: "Nina",
+      address: "gfggfhfjj",
+      date: "2.23.1399",
+      type: "Book & Stationary",
+      status: "Completed",
+    },
+    {
+      id: 7,
+      name: "John",
+      address: "gfggfhfjj",
+      date: "2.23.1399",
+      type: "Book & Stationary",
+      status: "Completed",
+    },
+  ];
+  export const ORDER_TYPES = [
+  "Health & Medicine",
+  "Book & Stationary",
+  "Services & Industry",
+  "Fashion & Beauty",
+  "Home & Living",
+  "Electronics",
+  "Mobile & Phone",
+  "Accessories",
+] as const;
