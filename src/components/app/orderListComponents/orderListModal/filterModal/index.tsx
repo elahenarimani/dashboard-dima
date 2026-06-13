@@ -1,19 +1,78 @@
+import {  useState, type Dispatch, type SetStateAction } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 import { ORDER_TYPES } from "../../../../../constants/orderData";
 import {
   ORDER_STATUSES,
   type ActiveModal,
+  type Order,
+  type OrderStatus,
+  type OrderType,
 } from "../../../../../types/orderList";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { useState } from "react";
+
 import Button from "../../../../kit/Button";
 type FilterModalProps = {
   activeModal: ActiveModal;
   onClose: () => void;
+
+  // onApply: (filters: {
+  //   date: Date | null;
+  //   type: OrderType | null;
+  //   status: OrderStatus | null;
+  // }) => void;
+
+  selectedValue: {
+    date: string | null;
+    type: OrderType | null;
+    status: OrderStatus | null;
+  };
+
+  // selectedDate: Date | null;
+  setListData: Dispatch<SetStateAction<Order[]>>;
+
+  // selectedType: OrderType | null;
+  // setSelectedType: Dispatch<SetStateAction<OrderType | null>>;
+
+  // selectedStatus: OrderStatus | null;
+  // setSelectedStatus: Dispatch<SetStateAction<OrderStatus | null>>;
+  listData:Order[];
+  selectedOrder:Order;
+  setActiveModal:ActiveModal;
 };
 
-const FilterModal = ({ activeModal, onClose }: FilterModalProps) => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+const FilterModal = ({
+  activeModal,
+  onClose,
+  // onApply,
+  listData,
+  setActiveModal,
+  setListData,
+  selectedOrder
+}: FilterModalProps) => {
+   const [selectedDate, setSelectedDate] = useState<Date|null>(null);
+   const [selectedType, setSelectedType] = useState<OrderType|null>(null);
+   const [selectedStatus, setSelectedStatus] = useState<OrderStatus|null>(null);
+const handleApply = () => {
+  if (!selectedOrder) return;
+
+  setListData((prev) =>
+    prev.map((order) =>
+      order.id === selectedOrder.id
+        ? {
+            ...order,
+            status: selectedStatus ?? order.status,
+            type: selectedType ?? order.type,
+            date: selectedDate
+              ? selectedDate.toLocaleDateString("en-CA")
+              : order.date,
+          }
+        : order
+    )
+  );
+
+  setActiveModal(null);
+};
   if (!activeModal) return null;
 
   return (
@@ -28,8 +87,6 @@ const FilterModal = ({ activeModal, onClose }: FilterModalProps) => {
             {activeModal === "date" && "Date Filter"}
             {activeModal === "type" && "Order Type"}
             {activeModal === "status" && "Order Status"}
-            {/* {activeModal === "filter" && "Filter"}
-            {activeModal === "sort" && "Sort By"} */}
           </h3>
 
           <button onClick={onClose} className="text-gray-500 hover:text-black">
@@ -38,19 +95,7 @@ const FilterModal = ({ activeModal, onClose }: FilterModalProps) => {
         </div>
 
         <div className="p-4">
-          {/* {activeModal === "date" && (
-            <div className="flex flex-col gap-2">
-              <button className="rounded-lg p-2 hover:bg-gray-100">
-                Today
-              </button>
-              <button className="rounded-lg p-2 hover:bg-gray-100">
-                This Week
-              </button>
-              <button className="rounded-lg p-2 hover:bg-gray-100">
-                This Month
-              </button>
-            </div>
-          )} */}
+         
           {activeModal === "date" && (
             <div className="flex flex-col gap-2">
               <div className="w-full h-[265px] flex justify-center">
@@ -66,7 +111,13 @@ const FilterModal = ({ activeModal, onClose }: FilterModalProps) => {
           {activeModal === "type" && (
             <div className="flex flex-col gap-2">
               {ORDER_TYPES.map((item) => (
-                <button key={item} className="rounded-lg p-2 hover:bg-gray-100">
+                <button
+                  key={item}
+                  onClick={() => setSelectedType(item)}
+                  className={`rounded-lg p-2 hover:bg-gray-100 ${
+                    selectedType === item ? "bg-blue-100" : ""
+                  }`}
+                >
                   {item}
                 </button>
               ))}
@@ -78,27 +129,31 @@ const FilterModal = ({ activeModal, onClose }: FilterModalProps) => {
               {ORDER_STATUSES.map((status) => (
                 <button
                   key={status}
-                  className="rounded-lg p-2 hover:bg-gray-100"
+                  onClick={() => setSelectedStatus(status)}
+                  className={`rounded-lg p-2 hover:bg-gray-100 ${
+                    selectedStatus === status ? "bg-blue-100" : ""
+                  }`}
                 >
                   {status}
                 </button>
               ))}
             </div>
           )}
-        <div className="w-full flex justify-center items-center">
-            <Button className="mt-10" color={"primary"}>Apply Now</Button>
-        </div>
-        
-          {/* {activeModal === "sort" && (
-            <div className="flex flex-col gap-2">
-              <button className="rounded-lg p-2 hover:bg-gray-100">
-                Newest
-              </button>
-              <button className="rounded-lg p-2 hover:bg-gray-100">
-                Oldest
-              </button>
-            </div>
-          )} */}
+          <div className="w-full flex justify-center items-center">
+            {/* <Button className="mt-10" color={"primary"}>Apply Now</Button> */}
+            <Button
+              className="w-[150px] mt-10"
+              variant="contained"
+              onClick={() => {
+              handleApply()
+                onClose();
+              }}
+            >
+              Apply Now
+            </Button>
+          </div>
+
+         
         </div>
       </div>
     </>

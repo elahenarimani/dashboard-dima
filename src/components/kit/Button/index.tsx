@@ -1,143 +1,77 @@
-// // import React from "react";
+import clsx from "clsx";
 
-// // type ButtonVariant = "contained" | "outlined" | "text";
-// // type ButtonSize = "sm" | "md" | "lg";
-// // type ButtonColor = "primary" | "secondary" | "danger";
+type TSize = "sm" | "md" | "lg";
+type TColor =
+  | "brand"
+  | "secondary"
+  | "success"
+  | "error"
+  | "warning"
+  | "info";
 
-// // type ButtonProps = {
-// //   variant?: ButtonVariant;
-// //   buttonSize?: ButtonSize;
-// //   fullWidth?: boolean;
-// //   active?: boolean;
-// //   loading?: boolean;
-// //   color?: ButtonColor;
-// //   children?: React.ReactNode;
-// //   onClick?: () => void;
-// //   className?: string;
-// // };
+type TVariant = "contained" | "outlined" | "text";
 
-// // const sizeClasses: Record<ButtonSize, string> = {
-// //   sm: "px-3 py-1 text-sm",
-// //   md: "px-4 py-2 text-base",
-// //   lg: "px-6 py-3 text-lg",
-// // };
+interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: TVariant;
+  fullWidth?: boolean;
+  children: React.ReactNode;
+  size?: TSize;
+  active?: boolean;
+  loading?: boolean;
+  color?: TColor;
+}
 
-// // const colorClasses: Record<ButtonColor, string> = {
-// //   primary: "bg-blue-[#4880FF] text-white border-blue-600",
-// //   secondary: "bg-gray-600 text-white border-gray-600",
-// //   danger: "bg-red-600 text-white border-red-600",
-// // };
+const sizeStyles = {
+  sm: "h-9 text-sm px-3",
+  md: "h-12 text-base px-4",
+  lg: "h-16 text-lg px-6",
+};
 
-// // const Button: React.FC<ButtonProps> = ({
-// //   variant = "contained",
-// //   buttonSize = "md",
-// //   fullWidth = false,
-// //   active = false,
-// //   loading = false,
-// //   color = "primary",
-// //   children,
-// //   onClick,
-// //   className = "",
-// // }) => {
-// //   const base =
-// //     "inline-flex items-center justify-center rounded-lg font-medium transition border";
+const colorStyles: Record<TColor, string> = {
+  brand: "bg-purple-600 text-white hover:bg-purple-700",
+  secondary: "bg-gray-500 text-white hover:bg-gray-600",
+  success: "bg-green-500 text-white hover:bg-green-600",
+  error: "bg-red-500 text-white hover:bg-red-600",
+  warning: "bg-yellow-500 text-black hover:bg-yellow-600",
+  info: "bg-blue-500 text-white hover:bg-blue-600",
+};
 
-// //   const size = sizeClasses[buttonSize];
+const variantStyles: Record<TVariant, string> = {
+  contained: "",
+  outlined: "bg-transparent border border-current",
+  text: "bg-transparent hover:bg-gray-100",
+};
 
-// // const variants: Record<ButtonVariant, string> = {
-// //   contained: "",
-// //   outlined: "bg-transparent border",
-// //   text: "bg-transparent border-none",
-// // };
-// // const colorClasses: Record<ButtonColor, string> = {
-// //   primary: "bg-blue-600 text-white border-blue-600",
-// //   secondary: "bg-gray-600 text-white border-gray-600",
-// //   danger: "bg-red-600 text-white border-red-600",
-// // };
+const Button: React.FC<IProps> = ({
+  variant = "contained",
+  fullWidth = false,
+  children,
+  size = "md",
+  active = false,
+  loading = false,
+  color = "brand",
+  className,
+  disabled,
+  ...rest
+}) => {
+  return (
+    <button
+      disabled={disabled || loading}
+      className={clsx(
+        "rounded-lg transition-all duration-200 flex items-center justify-center",
+        sizeStyles[size],
+        variantStyles[variant],
+        variant === "contained" && colorStyles[color],
+        fullWidth && "w-full",
+        active && "ring-2 ring-offset-2 ring-purple-500",
+        disabled && "opacity-50 cursor-not-allowed",
+        className
+      )}
+      {...rest}
+    >
+      {loading ? "Loading..." : children}
+    </button>
+  );
+};
 
-// //   return (
-// //     <button
-// //       onClick={onClick}
-// //       disabled={loading}
-// //       className={`
-// //         ${base}
-// //         ${size}
-// //         ${variants[variant]}
-// //         ${fullWidth ? "w-full" : ""}
-// //         ${active ? "ring-2 ring-offset-2 ring-blue-400" : ""}
-// //         ${loading ? "opacity-60 cursor-not-allowed" : ""}
-// //         ${className}
-// //       `}
-      
-// //     >
-// //       {loading ? "Loading..." : children}
-// //     </button>
-// //   );
-// // };
-
-// // export default Button;
-
-
-
-
-// import className from "classnames";
-// import classNames from "classnames";
-// import React from "react";
-
-// type ButtonProps = {
-//   children: React.ReactNode;
-
-//   primary?: boolean;
-//   secondary?: boolean;
-//   success?: boolean;
-//   warning?: boolean;
-//   danger?: boolean;
-
-//   outline?: boolean;
-//   rounded?: boolean;
-
-//   onClick?: () => void;
-// };
-
-// export default function Button({
-//   children,
-//   primary,
-//   secondary,
-//   success,
-//   warning,
-//   danger,
-//   outline,
-//   rounded,
-// } : ButtonProps) {
-//   //1st arg:: for all variations.
-//   const classes = className("px-3 py-1.5 border", {
-//     "border-blue-500 bg-blue-500 text-white": primary,
-//     "border-gray-900 bg-gray-900 text-white": secondary,
-//     "border-green-500 bg-green-500 text-white": success,
-//     "border-yellow-400 bg-yellow-400 text-white": warning,
-//     "border-red-500 bg-red-500 text-white": danger,
-//     "rounded-full": rounded,
-//     "bg-white": outline,
-//     "text-blue-500": outline && primary,
-//     "text-gray-900": outline && secondary,
-//     "text-green-500": outline && success,
-//     "text-yellow-500": outline && warning,
-//     "text-red-500": outline && danger,
-//   });
-
-//   return <button className={classes}>{children}</button>;
-// }
-
-// Button.propTypes = {
-//   checkVariationValue: ({ primary, secondary, success, danger, warning }) => {
-//     const count =
-//       Number(!!primary) +
-//       Number(!!secondary) +
-//       Number(!!success) +
-//       Number(!!danger) +
-//       Number(!!warning);
-//     if (count > 1) {
-//       return new Error("Only one of p, s, w , s ,d can be true");
-//     }
-//   },
-// };
+export default Button;
