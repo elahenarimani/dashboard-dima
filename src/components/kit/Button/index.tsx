@@ -28,7 +28,7 @@ const sizeStyles = {
 };
 
 const colorStyles: Record<TColor, string> = {
-  brand: "bg-purple-600 text-white hover:bg-purple-700",
+  brand: "bg-[#4880FF] text-white hover:bg-[#4880FF]",
   secondary: "bg-gray-500 text-white hover:bg-gray-600",
   success: "bg-green-500 text-white hover:bg-green-600",
   error: "bg-red-500 text-white hover:bg-red-600",
@@ -58,7 +58,7 @@ const Button: React.FC<IProps> = ({
     <button
       disabled={disabled || loading}
       className={clsx(
-        "rounded-lg transition-all duration-200 flex items-center justify-center",
+        "rounded-4xl transition-all duration-200 flex items-center justify-center",
         sizeStyles[size],
         variantStyles[variant],
         variant === "contained" && colorStyles[color],

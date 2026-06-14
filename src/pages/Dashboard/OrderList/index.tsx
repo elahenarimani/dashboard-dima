@@ -2,8 +2,10 @@ import { useState } from "react";
 
 import type {
   ActiveModal,
+  IFormState,
   Order,
- 
+  // OrderStatus,
+  // OrderType,
 } from "../../../types/orderList";
 
 import FilterItem from "../../../components/app/orderListComponents/filterItemProps";
@@ -11,110 +13,90 @@ import FilterItem from "../../../components/app/orderListComponents/filterItemPr
 import Filter from "../../../assets/icons/Filter.svg?react";
 import ArrowDown from "../../../assets/icons/ArrowDown.svg?react";
 import Reset from "../../../assets/icons/Reset.svg?react";
+import SortAscendingCircle from "../../../assets/icons/SortAscendingCircle.svg?react";
+import ArrowLeft from "../../../assets/icons/arrowLeft.svg?react";
+import ArrowRight from "../../../assets/icons/arrowRight.svg?react";
+
 import FilterModal from "../../../components/app/orderListComponents/orderListModal/filterModal";
-import { data } from "../../../../src/constants/orderData";
+import { data, itemsPerPage } from "../../../../src/constants/orderData";
+import Button from "../../../components/kit/Button";
 
 const OrderList: React.FC = () => {
   const [activeModal, setActiveModal] = useState<ActiveModal>(null);
-  // const [selectedItem, setSelectedItem] = useState<{
-  //   date: string | null;
-  //   type: OrderType | null;
-  //   status: OrderStatus | null;
-  // }>({
-  //   date: null,
-  //   type: null,
-  //   status: null,
-  // });
   const [listData, setListData] = useState<Order[]>(data);
-  const [selectedOrder, setSelectedOrder] = useState<Order>();
+  // const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  // const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  // const [selectedType, setSelectedType] = useState<OrderType[] | null>();
+  // const [selectedStatus, setSelectedStatus] = useState<OrderStatus[] | null>(
+  //   null,
+  // );
+  const [page, setPage] = useState(1);
+  const [formState, setFormState] = useState<IFormState>({
+    date: null,
+    type: [],
+    status: [],
+    order: null,
+  });
 
+  const sortData = () => {
+    setListData((prev) =>
+      [...prev].sort(
+        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+      ),
+    );
+  };
 
-  console.log("listData", listData);
-  // const filteredData = useMemo(() => {
-  //   return data.filter((item) => {
-  //     if (filters.type && item.type !== filters.type) return false;
-  //     if (filters.status && item.status !== filters.status) return false;
+  const totalPages = Math.ceil(listData.length / itemsPerPage);
+  const handlePrev = () => {
+    if (page > 1) setPage(page - 1);
+  };
 
-  //     if (filters.date && item.date !== filters.date) return false;
-
-  //     return true;
-  //   });
-  // }, [filters]);
-  
+  const handleNext = () => {
+    if (page < totalPages) setPage(page + 1);
+  };
+  const paginatedData = listData.slice(
+    (page - 1) * itemsPerPage,
+    page * itemsPerPage,
+  );
   console.log("data", data);
   console.log("activeModal", activeModal);
-  // console.log("filters:", filters);
   return (
     <div className="h-full bg-[#F9F9F9] flex flex-col justify-start items-start  px-5">
       <p className="text-(--color-text) font-bold text-3xl ">OrderList</p>
 
       <div className="mt-5 h-[40px] w-[818px] border border-(--color-border) rounded-2xl flex items-center justify-between">
         <div className="h-full flex items-center px-3 gap-5">
-          <Filter className="text-(--color-svg) py-1" />
+          <Filter className="text-(--color-svg) " />
         </div>
         <div className="h-full border-r border-(--color-border)" />
         <div className="h-full flex items-center px-3 gap-5">
           <p className="font-bold text-sm whitespace-nowrap">Filter By</p>
         </div>
         <div className="h-full border-r border-(--color-border)" />
-        {/* <div className="h-full flex items-center px-3 gap-5">
-          <p
-            className="font-bold text-sm whitespace-nowrap"
-            onClick={() => setActiveModal("date")}
-          >
-            Date
-          </p>
-          <ArrowDown className=" text-(--color-svg)" />
-        </div> */}
 
-        <FilterItem
-          label="Date"
-          icon={<ArrowDown />}
-          // type="date"
-          // setActiveModal={setActiveModal}
-        />
+        <FilterItem label="Date" icon={<ArrowDown />} />
         <div className="h-full border-r border-(--color-border)" />
-        {/* <div
+
+        <FilterItem label="Order Type" icon={<ArrowDown />} />
+        <div className="h-full border-r border-(--color-border)" />
+        <FilterItem label="Order Status" icon={<ArrowDown />} />
+        <div className="h-full border-r border-(--color-border)" />
+        <div
           className="h-full flex items-center px-3 gap-5"
-          onClick={() => setActiveModal("type")}
+          onClick={() => setListData(data)}
         >
-          <p className="font-bold text-sm whitespace-nowrap">Order Type</p>
-          <ArrowDown className=" text-(--color-svg)" />
-        </div> */}
-
-        <FilterItem
-          label="Order Type"
-          icon={<ArrowDown />}
-          // type="type"
-          // setActiveModal={setActiveModal}
-        />
-        <div className="h-full border-r border-(--color-border)" />
-        {/* <div
-          className="h-full flex items-center px-3 gap-5"
-          onClick={() => setActiveModal("status")}
-        >
-          <p className="font-bold text-sm whitespace-nowrap">Order Status</p>
-          <ArrowDown className=" text-(--color-svg)" />
-
-        </div> */}
-        <FilterItem
-          label="Order Status"
-          icon={<ArrowDown />}
-          // type="status"
-          // setActiveModal={setActiveModal}
-        />
-        <div className="h-full border-r border-(--color-border)" />
-        <div className="h-full flex items-center px-3 gap-5">
           <p className="font-bold text-sm whitespace-nowrap text-[#EA0234]">
             Reset Filter
           </p>
           <Reset className=" text-[#EA0234]" />
-          {/* <div className="h-full border-r border-(--color-border)" /> */}
         </div>
         <div className="h-full border-r border-(--color-border)" />
-        <div className="h-full flex items-center px-3 gap-5">
+        <div
+          className="h-full flex items-center px-3 gap-5"
+          onClick={() => sortData()}
+        >
           <p className="font-bold text-sm whitespace-nowrap">Sort By</p>
-          <ArrowDown className=" text-(--color-svg)" />
+          <SortAscendingCircle className=" text-(--color-svg)" />
         </div>
       </div>
 
@@ -136,7 +118,7 @@ const OrderList: React.FC = () => {
           </thead>
 
           <tbody>
-            {listData.map((item, index) => (
+            {paginatedData.map((item, index) => (
               <tr
                 key={item.id}
                 className={`hover:bg-gray-50  ${
@@ -152,45 +134,57 @@ const OrderList: React.FC = () => {
                   className="py-3 cursor-pointer hover:text-blue-600"
                   // onClick={() => {
                   //   setActiveModal("date");
+                  //   setSelectedDate(new Date(item.date));
+                  //   setSelectedOrder(item);
                   // }}
-                      onClick={() => {
-                    setSelectedOrder(item);
+
+
+                    onClick={() => {
                     setActiveModal("date");
+                    setFormState({
+                      date: new Date(item.date),
+                      type: formState.type,
+                      status: formState.status,
+                      order: item,
+                    });
                   }}
                 >
                   {item.date}
                 </td>
                 <td
-                  className="py-3 cursor-pointer hover:text-blue-600"
+                  className="py-3 cursor-pointer hover:text-blue-600 px-2"
                   // onClick={() => {
-                  //   console.log("item.idtype", item.id);
-                  //   // setSelectedItem((prev) => ({ ...prev, type: item.type }));
-                  //   // setActiveModal("type");
-
                   //   setActiveModal("type");
+                  //   setSelectedType(item.type);
+                  //   setSelectedOrder(item);
                   // }}
                   onClick={() => {
-                    setSelectedOrder(item);
                     setActiveModal("type");
+                    setFormState({
+                      date: formState.date,
+                      type: item.type,
+                      status: formState.status,
+                      order: item,
+                    });
                   }}
                 >
-                  {item.type}
+                  {item.type.join(" • ")}
                 </td>
                 <td
                   className="py-3 cursor-pointer hover:text-blue-600"
                   // onClick={() => {
-                  //   console.log("item.idstatus", item.id);
-                  //   // setSelectedItem((prev) => ({
-                  //   //   ...prev,
-                  //   //   status: item.status,
-                  //   // }));
-                  //   // setActiveModal("status");
-
+                  //   setSelectedOrder(item);
                   //   setActiveModal("status");
                   // }}
+
                   onClick={() => {
-                    setSelectedOrder(item);
                     setActiveModal("status");
+                    setFormState({
+                      date: formState.date,
+                      type: formState.type,
+                      status: item.status,
+                      order: item,
+                    });
                   }}
                 >
                   {item.status}
@@ -200,41 +194,58 @@ const OrderList: React.FC = () => {
           </tbody>
         </table>
       </div>
-      {/* {activeModal === "date" && (
-        <DateModal onClose={() => setActiveModal(null)} />
-      )}
-      {activeModal === "type" && (
-        <TypeModal onClose={() => setActiveModal(null)} />
-      )}
-      {activeModal === "status" && (
-        <StatusModal onClose={() => setActiveModal(null)} />
-      )}
-      {activeModal === "sort" && (
-        <SortModal onClose={() => setActiveModal(null)} />
-      )} */}
-      {/* <FilterModal
-        activeModal={activeModal}
-        onClose={() => setActiveModal(null)}
-      /> */}
+      <div className="w-full flex flex-row justify-end items-center pt-10">
+        <div className="flex h-[30px] items-center border border-(--color-border)   rounded-2xl overflow-hidden w-fit">
+          {/* Left */}
+          <Button
+            variant="text"
+            size="sm"
+            onClick={handlePrev}
+            className="p-2 hover:bg-gray-100 disabled:opacity-40"
+            // disabled={page === 1}
+          >
+            <ArrowLeft className="text-(--color-svg) " />
+          </Button>
+
+          {/* Middle */}
+          <span className="w-full border-r border-(--color-border)"></span>
+          <div className="w-full border-r border-(--color-border) text-sm font-medium">
+            {page} / {totalPages}
+          </div>
+
+          {/* Right */}
+          <Button
+            variant="text"
+            size="sm"
+            onClick={handleNext}
+            className="p-2 hover:bg-gray-100 disabled:opacity-40"
+            disabled={page === totalPages}
+          >
+            <ArrowRight className="text-(--color-svg) " />
+          </Button>
+        </div>
+      </div>
 
       <FilterModal
         activeModal={activeModal}
-
         onClose={() => setActiveModal(null)}
-        // onApply={(newValue) => {
-        //   setFilters((prev) => ({
-        //     ...prev,
-        //     date: newValue.date ? newValue.date.toISOString() : prev.date,
-        //     type: newValue.type ?? prev.type,
-        //     status: newValue.status ?? prev.status,
-        //   }));
-
-        //   setActiveModal(null);
-        // }}
         listData={listData}
         setListData={setListData}
-        selectedOrder={selectedOrder}
-        setActiveModal={setActiveModal}
+        // selectedOrder={selectedOrder}
+        // setActiveModal={setActiveModal}
+        // setSelectedOrder={setSelectedOrder}
+        // selectedDate={selectedDate}
+        // setSelectedDate={setSelectedDate}
+        // selectedType={selectedType}
+        // setSelectedType={setSelectedType}
+        // selectedStatus={selectedStatus}
+        // setSelectedStatus={setSelectedStatus}
+
+        activeModal={activeModal}
+        onClose={() => setActiveModal(null)}
+        formState={formState}
+        setFormState={setFormState}
+        setListData={setListData}
       />
     </div>
   );
