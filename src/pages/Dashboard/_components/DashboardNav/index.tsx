@@ -16,7 +16,7 @@ export const DashboardNav: React.FC<DashboardNavProps> = ({ className }) => {
           <Menu className="text-(--color-svg)" />
         </li>
         <li>
-          <NavLink to={"/dashboard/table"}>
+          <NavLink to={"/dashboard/chart"}>
             {({ isActive }) => (
               <Dashboard
                 className={isActive ? "text-[#4379EE]" : "text-(--color-svg)"}
@@ -25,7 +25,7 @@ export const DashboardNav: React.FC<DashboardNavProps> = ({ className }) => {
           </NavLink>
         </li>
         <li>
-          <NavLink to={"/dashboard/chart"}>
+          <NavLink to={"/dashboard/orderList"}>
             {({ isActive }) => (
               <OrderList
                 className={isActive ? "text-[#4379EE]" : "text-(--color-svg)"}

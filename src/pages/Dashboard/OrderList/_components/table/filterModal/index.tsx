@@ -5,13 +5,13 @@ import {
   ORDER_STATUSES,
   type ActiveModal,
   type IFormState,
-  type Order,
   type OrderStatus,
   type OrderType,
 } from "../../../../../../types/orderList";
 import Button from "../../../../../../components/kit/Button";
 import { ORDER_TYPES } from "../../../../../../constants/orderData";
-import "./filterModal.css"
+import "./filterModal.css";
+import { useOrders } from "../../../../../../context/OrderContext";
 // import { ORDER_TYPES } from "../../../../../constants/orderData";
 // import {
 //   ORDER_STATUSES,
@@ -26,8 +26,8 @@ import "./filterModal.css"
 type FilterModalProps = {
   activeModal: ActiveModal;
   onClose: () => void;
-  setListData: Dispatch<SetStateAction<Order[]>>;
-  listData: Order[];
+  // setListData: Dispatch<SetStateAction<Order[]>>;
+  // listData: Order[];
   formState: IFormState;
   setFormState: React.Dispatch<React.SetStateAction<IFormState>>;
   setActiveModal: Dispatch<SetStateAction<ActiveModal>>;
@@ -49,14 +49,15 @@ const FilterModal = ({
   // setSelectedType,
   // selectedStatus,
   // setSelectedStatus,
-  listData,
+
   formState,
   setFormState,
   // setSelectedOrder,
   setActiveModal,
-  setListData,
+
   // selectedOrder,
 }: FilterModalProps) => {
+  const { setListData } = useOrders();
   const handleTypeSelect = (type: OrderType) => {
     console.log("clicked", type);
     setFormState((prev) => ({
@@ -98,7 +99,6 @@ const FilterModal = ({
           : item,
       ),
     );
-    console.log("listData", listData);
 
     setFormState({
       date: null,
@@ -182,13 +182,10 @@ const FilterModal = ({
                     setFormState((prev) => ({
                       ...prev,
                       date,
-                    }
-                
-                  
-                  ))
+                    }))
                   }
                   inline
-                 peekNextMonth={false}
+                  peekNextMonth={false}
                 />
 
                 {/* <DatePicker

@@ -169,6 +169,22 @@ export const data: Order[] = [
     type: ["Book & Stationary"],
     status: ["Completed"],
   },
+    {
+    id: 24,
+    name: "afshin",
+    address: "gfggfhfjj",
+    date: new Date("September 18, 2024"),
+    type: ["Book & Stationary"],
+    status: ["Completed"],
+  },
+    {
+    id: 25,
+    name: "afshin",
+    address: "gfggfhfjj",
+    date: new Date("September 20, 2024"),
+    type: ["Book & Stationary"],
+    status: ["Completed"],
+  },
 ];
 export const ORDER_TYPES = [
   "Health & Medicine",
