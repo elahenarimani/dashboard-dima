@@ -19,7 +19,7 @@ export type Order = {
   id: number;
   name: string;
   address: string;
-  date: string;
+  date: Date;
   type: OrderType[];
   status: OrderStatus[];
 };
@@ -32,8 +32,8 @@ export const ORDER_STATUSES = [
 ] as const;
 export type ActiveModal = "date" | "type" | "status" | null;
 export interface IFormState {
-  date: null;
-  type: [];
-  status: [];
-  order: null;
+  date: Date | null;
+  type: OrderType[];
+  status: OrderStatus[];
+  order: Order | null;
 }

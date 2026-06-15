@@ -1,8 +1,6 @@
 import { type Dispatch, type SetStateAction } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
-import { ORDER_TYPES } from "../../../../../constants/orderData";
 import {
   ORDER_STATUSES,
   type ActiveModal,
@@ -10,27 +8,37 @@ import {
   type Order,
   type OrderStatus,
   type OrderType,
-} from "../../../../../types/orderList";
+} from "../../../../../../types/orderList";
+import Button from "../../../../../../components/kit/Button";
+import { ORDER_TYPES } from "../../../../../../constants/orderData";
+import "./filterModal.css"
+// import { ORDER_TYPES } from "../../../../../constants/orderData";
+// import {
+//   ORDER_STATUSES,
+//   type ActiveModal,
+//   type IFormState,
+//   type Order,
+//   type OrderStatus,
+//   type OrderType,
+// } from "../../../../../types/orderList";
 
-import Button from "../../../../kit/Button";
+// import Button from "../../../../kit/Button";
 type FilterModalProps = {
   activeModal: ActiveModal;
   onClose: () => void;
   setListData: Dispatch<SetStateAction<Order[]>>;
-
   listData: Order[];
   formState: IFormState;
   setFormState: React.Dispatch<React.SetStateAction<IFormState>>;
-
   setActiveModal: Dispatch<SetStateAction<ActiveModal>>;
-  selectedOrder: Order | null;
-  setSelectedOrder: React.Dispatch<React.SetStateAction<Order | null>>;
-  selectedDate: Date;
-  setSelectedDate: React.Dispatch<React.SetStateAction<Date | null>>;
-  selectedType: OrderType[];
-  setSelectedType: React.Dispatch<React.SetStateAction<OrderType[] | null>>;
-  selectedStatus: OrderStatus[];
-  setSelectedStatus: React.Dispatch<React.SetStateAction<OrderStatus[] | null>>;
+  // selectedOrder: Order | null;
+  // setSelectedOrder: React.Dispatch<React.SetStateAction<Order | null>>;
+  // selectedDate: Date;
+  // setSelectedDate: React.Dispatch<React.SetStateAction<Date | null>>;
+  // selectedType: OrderType[];
+  // setSelectedType: React.Dispatch<React.SetStateAction<OrderType[] | null>>;
+  // selectedStatus: OrderStatus[];
+  // setSelectedStatus: React.Dispatch<React.SetStateAction<OrderStatus[] | null>>;
 };
 const FilterModal = ({
   activeModal,
@@ -47,10 +55,10 @@ const FilterModal = ({
   // setSelectedOrder,
   setActiveModal,
   setListData,
-  selectedOrder,
+  // selectedOrder,
 }: FilterModalProps) => {
-  console.log("selectedOrderbefore", selectedOrder);
   const handleTypeSelect = (type: OrderType) => {
+    console.log("clicked", type);
     setFormState((prev) => ({
       ...prev,
       type: prev.type.includes(type)
@@ -58,7 +66,24 @@ const FilterModal = ({
         : [...prev.type, type],
     }));
   };
+  const handleStatusSelect = (status: OrderStatus) => {
+    setFormState((prev) => ({
+      ...prev,
+      status: prev.status.includes(status)
+        ? prev.status.filter((t) => t !== status)
+        : [...prev.status, status],
+    }));
+  };
+  // const handleTypeSelect=( date)=>{
+  //   setFormState((prev) => ({
+  //     ...prev,
+  //     date: prev.date
+  //       ? prev.date.filter((t) => t !== date)
+  //       : [...prev.date, date],
+  //   }));
+  // }
   const handleApply = () => {
+    console.log("hereeeeeeeee", formState);
     if (!formState.order) return;
 
     setListData((prev) =>
@@ -66,24 +91,24 @@ const FilterModal = ({
         item.id === formState.order!.id
           ? {
               ...item,
-              date: formState.date
-                ? formState.date.toISOString().split("T")[0]
-                : item.date,
+              date: formState.date ?? item.date,
               type: formState.type,
               status: formState.status,
             }
           : item,
       ),
     );
+    console.log("listData", listData);
 
-    setActiveModal(null);
     setFormState({
       date: null,
       type: [],
       status: [],
       order: null,
     });
+    setActiveModal(null);
   };
+  console.log("formState:", formState);
   // const handleApply = () => {
   //   if (!selectedOrder) return;
   //   setListData((prev) =>
@@ -111,15 +136,15 @@ const FilterModal = ({
   //   setSelectedType(null);
   //   setSelectedStatus(null);
   // };
-  console.log("selectedOrderafter", selectedOrder);
-  console.log("listData", listData);
-  const handleTypeSelect = (type: OrderType) => {
-    setSelectedType((prev) =>
-      prev?.includes(type)
-        ? prev?.filter((item) => item !== type)
-        : [...prev, type],
-    );
-  };
+  // console.log("selectedOrderafter", selectedOrder);
+  // console.log("listData", listData);
+  // const handleTypeSelect = (type: OrderType) => {
+  //   setSelectedType((prev) =>
+  //     prev?.includes(type)
+  //       ? prev?.filter((item) => item !== type)
+  //       : [...prev, type],
+  //   );
+  // };
   if (!activeModal) return null;
 
   return (
@@ -145,11 +170,37 @@ const FilterModal = ({
           {activeModal === "date" && (
             <div className="flex flex-col gap-2">
               <div className="w-full h-[265px] flex justify-center">
-                <DatePicker
+                {/* <DatePicker
                   selected={selectedDate}
                   onChange={(date: Date | null) => setSelectedDate(date)}
                   inline
+                /> */}
+                <DatePicker
+                  selected={formState.date}
+                  // onChange={(date: Date | null) => setSelectedDate(date)}
+                  onChange={(date: Date | null) =>
+                    setFormState((prev) => ({
+                      ...prev,
+                      date,
+                    }
+                
+                  
+                  ))
+                  }
+                  inline
+                 peekNextMonth={false}
                 />
+
+                {/* <DatePicker
+                  selected={formState.date ? new Date(formState.date) : null}
+                  onChange={(date) =>
+                    setFormState((prev) => ({
+                      ...prev,
+                      date: date ? date.toISOString().split("T")[0] : null,
+                    }))
+                  }
+                  inline
+                /> */}
               </div>
             </div>
           )}
@@ -160,12 +211,16 @@ const FilterModal = ({
                 <Button
                   key={item}
                   onClick={() => handleTypeSelect(item)}
-                  color={selectedType?.includes(item) ? "brand" : "secondary"}
+                  color={formState.type.includes(item) ? "brand" : "secondary"}
+                  variant={
+                    formState.type.includes(item) ? "contained" : "outlined"
+                  }
+                  // color={selectedType?.includes(item) ? "brand" : "secondary"}
                   size="sm"
                   className="rounded-2xl p-2"
-                  variant={
-                    selectedType?.includes(item) ? "contained" : "outlined"
-                  }
+                  // variant={
+                  //   selectedType?.includes(item) ? "contained" : "outlined"
+                  // }
                 >
                   {item}
                 </Button>
@@ -175,12 +230,23 @@ const FilterModal = ({
 
           {activeModal === "status" && (
             <div className="flex flex-col gap-2">
+              {/* {ORDER_STATUSES.map((status) => (
+                <button
+                  key={status}
+                  onClick={() => handleStatusSelect(status)}
+                  className={`rounded-lg p-2 hover:bg-gray-100 ${
+                    selectedStatus === status ? "bg-blue-100" : ""
+                  }`}
+                >
+                  {status}
+                </button>
+              ))} */}
               {ORDER_STATUSES.map((status) => (
                 <button
                   key={status}
-                  onClick={() => setSelectedStatus(status)}
+                  onClick={() => handleStatusSelect(status)}
                   className={`rounded-lg p-2 hover:bg-gray-100 ${
-                    selectedStatus === status ? "bg-blue-100" : ""
+                    formState.status.includes(status) ? "bg-blue-100" : ""
                   }`}
                 >
                   {status}

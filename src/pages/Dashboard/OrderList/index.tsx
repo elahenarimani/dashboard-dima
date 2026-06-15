@@ -8,8 +8,6 @@ import type {
   // OrderType,
 } from "../../../types/orderList";
 
-import FilterItem from "../../../components/app/orderListComponents/filterItemProps";
-
 import Filter from "../../../assets/icons/Filter.svg?react";
 import ArrowDown from "../../../assets/icons/ArrowDown.svg?react";
 import Reset from "../../../assets/icons/Reset.svg?react";
@@ -17,9 +15,10 @@ import SortAscendingCircle from "../../../assets/icons/SortAscendingCircle.svg?r
 import ArrowLeft from "../../../assets/icons/arrowLeft.svg?react";
 import ArrowRight from "../../../assets/icons/arrowRight.svg?react";
 
-import FilterModal from "../../../components/app/orderListComponents/orderListModal/filterModal";
 import { data, itemsPerPage } from "../../../../src/constants/orderData";
 import Button from "../../../components/kit/Button";
+import FilterItem from "./_components/filterItemProps";
+import FilterModal from "./_components/orderListModal/filterModal";
 
 const OrderList: React.FC = () => {
   const [activeModal, setActiveModal] = useState<ActiveModal>(null);
@@ -37,7 +36,7 @@ const OrderList: React.FC = () => {
     status: [],
     order: null,
   });
-
+  // console.log("formState", formState);
   const sortData = () => {
     setListData((prev) =>
       [...prev].sort(
@@ -138,18 +137,19 @@ const OrderList: React.FC = () => {
                   //   setSelectedOrder(item);
                   // }}
 
-
-                    onClick={() => {
+                  onClick={() => {
                     setActiveModal("date");
                     setFormState({
-                      date: new Date(item.date),
-                      type: formState.type,
-                      status: formState.status,
+                      date: formState.date,
+                      type: item.type,
+                      status: item.status,
                       order: item,
                     });
                   }}
                 >
-                  {item.date}
+                  {item.date.toDateString()}
+                  
+                  
                 </td>
                 <td
                   className="py-3 cursor-pointer hover:text-blue-600 px-2"
@@ -161,9 +161,9 @@ const OrderList: React.FC = () => {
                   onClick={() => {
                     setActiveModal("type");
                     setFormState({
-                      date: formState.date,
-                      type: item.type,
-                      status: formState.status,
+                      date: item.date,
+                      type: formState.type,
+                      status: item.status,
                       order: item,
                     });
                   }}
@@ -180,9 +180,9 @@ const OrderList: React.FC = () => {
                   onClick={() => {
                     setActiveModal("status");
                     setFormState({
-                      date: formState.date,
-                      type: formState.type,
-                      status: item.status,
+                      date: item.date,
+                      type: item.type,
+                      status: formState.status,
                       order: item,
                     });
                   }}
@@ -194,6 +194,13 @@ const OrderList: React.FC = () => {
           </tbody>
         </table>
       </div>
+
+
+
+
+
+
+      
       <div className="w-full flex flex-row justify-end items-center pt-10">
         <div className="flex h-[30px] items-center border border-(--color-border)   rounded-2xl overflow-hidden w-fit">
           {/* Left */}
@@ -202,7 +209,7 @@ const OrderList: React.FC = () => {
             size="sm"
             onClick={handlePrev}
             className="p-2 hover:bg-gray-100 disabled:opacity-40"
-            // disabled={page === 1}
+            disabled={page === 1}
           >
             <ArrowLeft className="text-(--color-svg) " />
           </Button>
@@ -231,8 +238,10 @@ const OrderList: React.FC = () => {
         onClose={() => setActiveModal(null)}
         listData={listData}
         setListData={setListData}
+        formState={formState}
+        setFormState={setFormState}
+        setActiveModal={setActiveModal}
         // selectedOrder={selectedOrder}
-        // setActiveModal={setActiveModal}
         // setSelectedOrder={setSelectedOrder}
         // selectedDate={selectedDate}
         // setSelectedDate={setSelectedDate}
@@ -240,12 +249,6 @@ const OrderList: React.FC = () => {
         // setSelectedType={setSelectedType}
         // selectedStatus={selectedStatus}
         // setSelectedStatus={setSelectedStatus}
-
-        activeModal={activeModal}
-        onClose={() => setActiveModal(null)}
-        formState={formState}
-        setFormState={setFormState}
-        setListData={setListData}
       />
     </div>
   );
