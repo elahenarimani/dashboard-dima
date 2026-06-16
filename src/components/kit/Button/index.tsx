@@ -1,13 +1,7 @@
 import clsx from "clsx";
 
 type TSize = "sm" | "md" | "lg";
-type TColor =
-  | "brand"
-  | "secondary"
-  | "success"
-  | "error"
-  | "warning"
-  | "info";
+type TColor = "brand" | "secondary" | "success" | "error" | "warning" | "info";
 
 type TVariant = "contained" | "outlined" | "text";
 
@@ -28,7 +22,7 @@ const sizeStyles = {
 };
 
 const colorStyles: Record<TColor, string> = {
-  brand: "bg-[#4880FF] text-white hover:bg-[#4880FF]",
+  brand: "bg-(--color-primary) text-white hover:bg-[#2F6AE0]",
   secondary: "bg-gray-500 text-white hover:bg-gray-600",
   success: "bg-green-500 text-white hover:bg-green-600",
   error: "bg-red-500 text-white hover:bg-red-600",
@@ -58,14 +52,14 @@ const Button: React.FC<IProps> = ({
     <button
       disabled={disabled || loading}
       className={clsx(
-        "rounded-4xl transition-all duration-200 flex items-center justify-center",
+        "rounded-xl transition-all duration-200 flex items-center justify-center cursor-pointer pt-[2px]",
         sizeStyles[size],
         variantStyles[variant],
         variant === "contained" && colorStyles[color],
         fullWidth && "w-full",
         active && "ring-2 ring-offset-2 ring-purple-500",
         disabled && "opacity-50 cursor-not-allowed",
-        className
+        className,
       )}
       {...rest}
     >

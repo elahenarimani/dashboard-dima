@@ -1,0 +1,6 @@
+export const todoData = [
+  { id: 1, title: "Review with HR", done: false },
+  { id: 2, title: "Fix dashboard UI", done: false },
+  { id: 3, title: "Call client", done: false },
+  { id: 4, title: "Update API integration", done: false },
+];

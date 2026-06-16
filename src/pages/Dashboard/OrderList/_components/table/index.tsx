@@ -9,15 +9,9 @@ import { useState } from "react";
 
 interface ITableProps {
   paginatedData: Order[];
-  //   setActiveModal: React.Dispatch<React.SetStateAction<ActiveModal>>;
-  //   setFormState: React.Dispatch<React.SetStateAction<IFormState>>;
 }
 
-const Table: React.FC<ITableProps> = ({
-  paginatedData,
-  //   setActiveModal,
-  //   setFormState,
-}) => {
+const Table: React.FC<ITableProps> = ({ paginatedData }) => {
   const [activeModal, setActiveModal] = useState<ActiveModal>(null);
   const [formState, setFormState] = useState<IFormState>({
     date: null,
@@ -103,10 +97,10 @@ const Table: React.FC<ITableProps> = ({
       </table>
       <FilterModal
         activeModal={activeModal}
+        setActiveModal={setActiveModal}
         onClose={() => setActiveModal(null)}
         formState={formState}
         setFormState={setFormState}
-        setActiveModal={setActiveModal}
       />
     </div>
   );
