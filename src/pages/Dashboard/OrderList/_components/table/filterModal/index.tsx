@@ -12,51 +12,20 @@ import Button from "../../../../../../components/kit/Button";
 import { ORDER_TYPES } from "../../../../../../constants/orderData";
 import "./filterModal.css";
 import { useOrders } from "../../../../../../context/OrderContext";
-// import { ORDER_TYPES } from "../../../../../constants/orderData";
-// import {
-//   ORDER_STATUSES,
-//   type ActiveModal,
-//   type IFormState,
-//   type Order,
-//   type OrderStatus,
-//   type OrderType,
-// } from "../../../../../types/orderList";
-
-// import Button from "../../../../kit/Button";
-type FilterModalProps = {
+type FilterModalTypes = {
   activeModal: ActiveModal;
   onClose: () => void;
-  // setListData: Dispatch<SetStateAction<Order[]>>;
-  // listData: Order[];
   formState: IFormState;
   setFormState: React.Dispatch<React.SetStateAction<IFormState>>;
   setActiveModal: Dispatch<SetStateAction<ActiveModal>>;
-  // selectedOrder: Order | null;
-  // setSelectedOrder: React.Dispatch<React.SetStateAction<Order | null>>;
-  // selectedDate: Date;
-  // setSelectedDate: React.Dispatch<React.SetStateAction<Date | null>>;
-  // selectedType: OrderType[];
-  // setSelectedType: React.Dispatch<React.SetStateAction<OrderType[] | null>>;
-  // selectedStatus: OrderStatus[];
-  // setSelectedStatus: React.Dispatch<React.SetStateAction<OrderStatus[] | null>>;
 };
 const FilterModal = ({
   activeModal,
   onClose,
-  // selectedDate,
-  // setSelectedDate,
-  // selectedType,
-  // setSelectedType,
-  // selectedStatus,
-  // setSelectedStatus,
-
   formState,
   setFormState,
-  // setSelectedOrder,
   setActiveModal,
-
-  // selectedOrder,
-}: FilterModalProps) => {
+}: FilterModalTypes) => {
   const { setListData } = useOrders();
   const handleTypeSelect = (type: OrderType) => {
     console.log("clicked", type);
@@ -75,14 +44,6 @@ const FilterModal = ({
         : [...prev.status, status],
     }));
   };
-  // const handleTypeSelect=( date)=>{
-  //   setFormState((prev) => ({
-  //     ...prev,
-  //     date: prev.date
-  //       ? prev.date.filter((t) => t !== date)
-  //       : [...prev.date, date],
-  //   }));
-  // }
   const handleApply = () => {
     console.log("hereeeeeeeee", formState);
     if (!formState.order) return;
@@ -109,42 +70,6 @@ const FilterModal = ({
     setActiveModal(null);
   };
   console.log("formState:", formState);
-  // const handleApply = () => {
-  //   if (!selectedOrder) return;
-  //   setListData((prev) =>
-  //     prev.map((order) =>
-  //       order.id === selectedOrder.id
-  //         ? {
-  //             ...order,
-  //             status: selectedStatus ?? order.status,
-  //             type: selectedType ?? order.type,
-  //             date: selectedDate
-  //               ? selectedDate.toLocaleDateString("en-US", {
-  //                   year: "numeric",
-  //                   month: "long",
-  //                   day: "numeric",
-  //                   numberingSystem: "latn",
-  //                 })
-  //               : order.date,
-  //           }
-  //         : order,
-  //     ),
-  //   );
-  //   setSelectedOrder(null);
-  //   setSelectedDate(null);
-  //   setActiveModal(null);
-  //   setSelectedType(null);
-  //   setSelectedStatus(null);
-  // };
-  // console.log("selectedOrderafter", selectedOrder);
-  // console.log("listData", listData);
-  // const handleTypeSelect = (type: OrderType) => {
-  //   setSelectedType((prev) =>
-  //     prev?.includes(type)
-  //       ? prev?.filter((item) => item !== type)
-  //       : [...prev, type],
-  //   );
-  // };
   if (!activeModal) return null;
 
   return (
@@ -170,14 +95,8 @@ const FilterModal = ({
           {activeModal === "date" && (
             <div className="flex flex-col gap-2">
               <div className="w-full h-[265px] flex justify-center">
-                {/* <DatePicker
-                  selected={selectedDate}
-                  onChange={(date: Date | null) => setSelectedDate(date)}
-                  inline
-                /> */}
                 <DatePicker
                   selected={formState.date}
-                  // onChange={(date: Date | null) => setSelectedDate(date)}
                   onChange={(date: Date | null) =>
                     setFormState((prev) => ({
                       ...prev,
@@ -187,17 +106,6 @@ const FilterModal = ({
                   inline
                   peekNextMonth={false}
                 />
-
-                {/* <DatePicker
-                  selected={formState.date ? new Date(formState.date) : null}
-                  onChange={(date) =>
-                    setFormState((prev) => ({
-                      ...prev,
-                      date: date ? date.toISOString().split("T")[0] : null,
-                    }))
-                  }
-                  inline
-                /> */}
               </div>
             </div>
           )}
@@ -212,12 +120,8 @@ const FilterModal = ({
                   variant={
                     formState.type.includes(item) ? "contained" : "outlined"
                   }
-                  // color={selectedType?.includes(item) ? "brand" : "secondary"}
                   size="sm"
                   className="rounded-2xl p-2"
-                  // variant={
-                  //   selectedType?.includes(item) ? "contained" : "outlined"
-                  // }
                 >
                   {item}
                 </Button>
@@ -227,17 +131,6 @@ const FilterModal = ({
 
           {activeModal === "status" && (
             <div className="flex flex-col gap-2">
-              {/* {ORDER_STATUSES.map((status) => (
-                <button
-                  key={status}
-                  onClick={() => handleStatusSelect(status)}
-                  className={`rounded-lg p-2 hover:bg-gray-100 ${
-                    selectedStatus === status ? "bg-blue-100" : ""
-                  }`}
-                >
-                  {status}
-                </button>
-              ))} */}
               {ORDER_STATUSES.map((status) => (
                 <button
                   key={status}

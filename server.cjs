@@ -37,6 +37,80 @@ app.get("/chart", (req, res) => {
   }
 });
 
+
+
+
+
+//to do 
+const todoFilePath = path.join(__dirname, "toDoData.json");
+
+
+function readTodos() {
+  const data = fs.readFileSync(todoFilePath, "utf8");
+  return JSON.parse(data);
+}
+
+function writeTodos(toDoData) {
+  fs.writeFileSync(
+    todoFilePath,
+    JSON.stringify(toDoData, null, 2),
+    "utf8"
+  );
+}
+//get
+app.get("/toDoData", (req, res) => {
+  try {
+    const toDoData = readTodos();
+    res.json(toDoData);
+  } catch (error) {
+    res.status(500).json({
+      message: "Error reading todos",
+      error,
+    });
+  }
+});
+
+//post
+app.post("/toDoData", (req, res) => {
+  try {
+    const toDoData = readTodos();
+
+    const newTodo = {
+      id: Date.now(),
+      title: req.body.title,
+      done: false,
+    };
+
+    toDoData.push(newTodo);
+    writeTodos(toDoData);
+    res.status(201).json(newTodo);
+  } catch (error) {
+    res.status(500).json({
+      message: "Error creating todo",
+      error,
+    });
+  }
+});
+
+
+//delete
+app.delete("/toDoData/:id", (req, res) => {
+  try {
+    const toDoData = readUsers();
+    const userId = parseInt(req.params.id);
+    const filteredUsers = users.filter((u) => u.id !== userId);
+
+    if (filteredUsers.length === users.length) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    writeUsers(filteredUsers);
+    res.json({ message: "User deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting user", error });
+  }
+});
+
 // GET user by id
 // app.get("/users/:id", (req, res) => {
 //   try {
