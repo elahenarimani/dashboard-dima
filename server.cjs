@@ -11,6 +11,9 @@ const dataFilePath = path.join(__dirname, "chartData.json");
 
 app.use(cors());
 app.use(express.json());
+// app.listen(PORT, () => {
+//   console.log(`Server running on port ${PORT}`);
+// });
 
 // خواندن دیتا از فایل
 function readChart() {
@@ -19,15 +22,16 @@ function readChart() {
 }
 
 // نوشتن دیتا داخل فایل
-function writeUsers(users) {
-  fs.writeFileSync(dataFilePath, JSON.stringify(users, null, 2), "utf8");
+function writeUsers(chart) {
+  fs.writeFileSync(dataFilePath, JSON.stringify(chart, null, 2), "utf8");
 }
 
-// GET all users
+// GET all chart
 app.get("/chart", (req, res) => {
   try {
     const chart = readChart();
     res.json(chart);
+    console.log(chart)
   } catch (error) {
     res.status(500).json({ message: "Error reading users", error });
   }
@@ -115,7 +119,6 @@ app.get("/chart", (req, res) => {
 //     res.status(500).json({ message: "Error deleting user", error });
 //   }
 // });
-
-// app.listen(PORT, () => {
-//   console.log(`Server running on http://localhost:${PORT}`);
-// });
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});

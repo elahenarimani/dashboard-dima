@@ -10,7 +10,7 @@ interface DashboardNavProps {
 
 export const DashboardNav: React.FC<DashboardNavProps> = ({ className }) => {
   return (
-    <div className={` w-[84px] h-full pt-4 bg-white  ${className}`}>
+    <div className={` w-[60px] h-full pt-4 bg-white  ${className}`}>
       <ul className="flex flex-col  justify-start items-center gap-6 ">
         <li>
           <Menu className="text-(--color-svg)" />
