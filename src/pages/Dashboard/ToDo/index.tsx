@@ -1,24 +1,26 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import {  useState } from "react";
+// import { useParams } from "react-router-dom";
 
-import useToDo from "../../../hooks/useToDo";
+// import useToDo from "../../../hooks/useToDo";
 
 import Button from "../../../components/kit/Button";
-import Card from "./_components/card";
+// import Card from "./_components/card";
 import AddTaskModal from "./_components/addTaskModal";
+import Test from "./_components/test";
 
 const ToDo: React.FC = () => {
-  const { id } = useParams();
-  const { data: todoDataList, isPending  ,deleteTodo} = useToDo(id);
+  // const { id } = useParams();
+  // const { data: todoDataList, isPending  ,deleteTodo} = useToDo(id);
+  //  const { data: todoDataList, isPending  } = useToDo(id);
   const [activeModal, setActiveModal] = useState(false);
 
-  if (isPending && todoDataList.length === 0) {
-  return <p>Loading...</p>;
-}
-  if (todoDataList.length === 0) {
-    return <p> Not Found</p>;
-  }
-  console.log("todoList:", todoDataList);
+//   if (isPending && todoDataList.length === 0) {
+//   return <p>Loading...</p>;
+// }
+//   if (todoDataList.length === 0) {
+//     return <p> Not Found</p>;
+//   }
+
   return (
     <div className="h-full  flex flex-col justify-start items-start px-5">
       <div className="w-full flex flex-row justify-between items-center">
@@ -31,7 +33,11 @@ const ToDo: React.FC = () => {
           Add New Task
         </Button>
       </div>
-      <div className="w-full flex flex-col justify-start items-center pt-5 gap-3">
+      <Test
+      
+            
+      />
+      {/* <div className="w-full flex flex-col justify-start items-center pt-5 gap-3">
         {todoDataList.map((item) => (
           <Card
             key={item.id}
@@ -41,7 +47,7 @@ const ToDo: React.FC = () => {
             onDelete={deleteTodo}
           />
         ))}
-      </div>
+      </div> */}
       <AddTaskModal
         activeModal={activeModal}
         setActiveModal={setActiveModal}

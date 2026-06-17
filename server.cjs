@@ -71,29 +71,26 @@ app.get("/toDoData", (req, res) => {
 });
 
 //post
-app.post("/toDoData", (req, res) => {
-  try {
-    const toDoData = readTodos();
+// app.post("/toDoData", (req, res) => {
+//   try {
+//     const toDoData = readTodos();
 
-    const newTodo = {
-      id: Date.now(),
-      title: req.body.title,
-      done: false,
-    };
+//     const newTodo = {
+//       id: Date.now(),
+//       title: req.body.title,
+//       done: false,
+//     };
 
-    toDoData.push(newTodo);
-    writeTodos(toDoData);
-    res.status(201).json(newTodo);
-  } catch (error) {
-    res.status(500).json({
-      message: "Error creating todo",
-      error,
-    });
-  }
-});
-
-
-
+//     toDoData.push(newTodo);
+//     writeTodos(toDoData);
+//     res.status(201).json(newTodo);
+//   } catch (error) {
+//     res.status(500).json({
+//       message: "Error creating todo",
+//       error,
+//     });
+//   }
+// });
 // app.post("/toDoData", (req, res) => {
 //   try {
 //     const todos = readTodos();
@@ -159,7 +156,6 @@ app.delete("/toDoData/:id", (req, res) => {
 
 
 //POST 
-
 app.post("/toDoData", (req, res) => {
   try {
     const todos = readTodos();
@@ -181,7 +177,6 @@ app.post("/toDoData", (req, res) => {
     };
 
     todos.push(userTodo);
-
     writeTodos(todos);
 
     res.status(201).json(userTodo);
@@ -192,22 +187,6 @@ app.post("/toDoData", (req, res) => {
     });
   }
 });
-
-// app.post("/toDoData", (req, res) => {
-//   try {
-//     const todos = readTodos();
-//     const newTodo = req.body;
-//     if (!newTodo.title) {
-//       return res.status(400).json({ message: "Task name is required" });
-//     }
-
-//     const newId = todos.length ? Math.max(...todos.map((u) => u.id)) + 1 : 1;
-
-//     const userTodo = {
-//       id: newId,
-//       ...newTodo,
-//     };
-  
 
 
 // GET user by id

@@ -8,12 +8,12 @@ import Input from "../../../../../components/kit/Input";
 
 type AddTaskModalTypes = {
   activeModal: boolean;
-  setActiveModal: Dispatch<SetStateAction<boolean>>;
+  // setActiveModal: Dispatch<SetStateAction<boolean>>;
   onClose: () => void;
 };
 const AddTaskModal: React.FC<AddTaskModalTypes> = ({
   activeModal,
-  setActiveModal,
+  // setActiveModal,
   onClose,
 }) => {
   const { id } = useParams();
@@ -22,14 +22,13 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({
   const [task, setTask] = useState("");
   const handleAddTask = async () => {
     if (!task.trim()) return;
-
     await addTodo({
       title: task,
       done: false,
     });
 
     setTask("");
-    setActiveModal(false);
+    // setActiveModal(false);
   };
   if (!activeModal) return null;
   return (
@@ -43,7 +42,7 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({
           <h3 className="font-bold">Add Task</h3>
 
           <button
-            onClick={() => setActiveModal(false)}
+           onClick={onClose}
             className="text-gray-500 hover:text-black"
           >
             ✕
