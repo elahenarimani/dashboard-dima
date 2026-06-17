@@ -1,4 +1,4 @@
-import { useState, type Dispatch, type SetStateAction } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 import useToDo from "../../../../../hooks/useToDo";
@@ -8,12 +8,10 @@ import Input from "../../../../../components/kit/Input";
 
 type AddTaskModalTypes = {
   activeModal: boolean;
-  // setActiveModal: Dispatch<SetStateAction<boolean>>;
   onClose: () => void;
 };
 const AddTaskModal: React.FC<AddTaskModalTypes> = ({
   activeModal,
-  // setActiveModal,
   onClose,
 }) => {
   const { id } = useParams();
@@ -28,7 +26,6 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({
     });
 
     setTask("");
-    // setActiveModal(false);
   };
   if (!activeModal) return null;
   return (
@@ -56,7 +53,7 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({
                 type="text"
                 ariaLabel="Task Name"
                 value={task}
-                onChange={setTask}
+                onChange={(value) => setTask(value as string)}
                 placeholder="Enter task name..."
               />
             </div>

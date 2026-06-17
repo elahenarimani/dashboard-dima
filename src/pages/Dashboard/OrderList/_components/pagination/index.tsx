@@ -36,7 +36,7 @@ const Pagination: React.FC<PaginationProps> = ({ page, setPage }) => {
           size="sm"
           onClick={handlePrev}
           disabled={page === 1}
-          className="p-2 hover:bg-gray-100 disabled:opacity-40"
+          className="p-x-2 hover:bg-gray-100 disabled:opacity-40"
         >
           <ArrowLeft className="text-(--color-svg)" />
         </Button>
@@ -52,7 +52,7 @@ const Pagination: React.FC<PaginationProps> = ({ page, setPage }) => {
           size="sm"
           onClick={handleNext}
           disabled={page === totalPages}
-          className="p-2 hover:bg-gray-100 disabled:opacity-40"
+          className="p-x-2 hover:bg-gray-100 disabled:opacity-40"
         >
           <ArrowRight className="text-(--color-svg)" />
         </Button>

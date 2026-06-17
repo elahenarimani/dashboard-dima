@@ -1,10 +1,6 @@
 import {  useState } from "react";
-// import { useParams } from "react-router-dom";
-
-// import useToDo from "../../../hooks/useToDo";
 
 import Button from "../../../components/kit/Button";
-// import Card from "./_components/card";
 import AddTaskModal from "./_components/addTaskModal";
 import Test from "./_components/test";
 
@@ -33,24 +29,10 @@ const ToDo: React.FC = () => {
           Add New Task
         </Button>
       </div>
-      <Test
-      
-            
-      />
-      {/* <div className="w-full flex flex-col justify-start items-center pt-5 gap-3">
-        {todoDataList.map((item) => (
-          <Card
-            key={item.id}
-            title={item.title}
-            initialDone={item.done}
-            id={item.id}
-            onDelete={deleteTodo}
-          />
-        ))}
-      </div> */}
+      <Test  />
       <AddTaskModal
         activeModal={activeModal}
-        setActiveModal={setActiveModal}
+        // setActiveModal={setActiveModal}
         onClose={() => setActiveModal(false)}
       />
     </div>

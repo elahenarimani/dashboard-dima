@@ -24,7 +24,7 @@ const Card: React.FC<CardProps> = ({
   const [isFavorite, setIsFavorite] = useState(false);
 
   return (
-    <div className="bg-white hover:bg-(--color-primary) border border-(--color-border) w-full rounded-xl px-2 py-3">
+    <div className={`border border-(--color-border) w-full rounded-xl px-6 py-5 transition-colors duration-300  ${ isChecked ? "bg-(--color-primary)" : "bg-[#FBFCFF]"}`}>
       <Toast
         message="Text Is Done"
         show={toast}
@@ -40,7 +40,6 @@ const Card: React.FC<CardProps> = ({
             onChange={(val) => {
               const checked = val as boolean;
               setIsChecked(checked);
-
               if (checked) {
                 setToast(true);
               }

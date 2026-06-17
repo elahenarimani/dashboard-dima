@@ -13,7 +13,7 @@ const Test = () => {
   }
 
   return (
-    <div className="w-full flex flex-col justify-start items-center pt-5 gap-3">
+    <div className="w-full flex flex-col justify-start items-center pt-5 gap-5">
       {todoDataList.map((item) => (
         <Card
           key={item.id}

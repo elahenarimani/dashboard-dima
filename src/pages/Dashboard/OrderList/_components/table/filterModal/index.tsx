@@ -1,24 +1,28 @@
-import { type Dispatch, type SetStateAction } from "react";
 import DatePicker from "react-datepicker";
+import { type Dispatch, type SetStateAction } from "react";
 import "react-datepicker/dist/react-datepicker.css";
+
 import {
   ORDER_STATUSES,
-  type ActiveModal,
+  type ActiveModalType,
   type IFormState,
   type OrderStatus,
   type OrderType,
 } from "../../../../../../types/orderList";
+
 import Button from "../../../../../../components/kit/Button";
+import { useOrders } from "../../../../../../context/OrderContext";
 import { ORDER_TYPES } from "../../../../../../constants/orderData";
 import "./filterModal.css";
-import { useOrders } from "../../../../../../context/OrderContext";
+
 type FilterModalTypes = {
-  activeModal: ActiveModal;
+  activeModal: ActiveModalType;
   onClose: () => void;
   formState: IFormState;
   setFormState: React.Dispatch<React.SetStateAction<IFormState>>;
-  setActiveModal: Dispatch<SetStateAction<ActiveModal>>;
+  setActiveModal: Dispatch<SetStateAction<ActiveModalType>>;
 };
+
 const FilterModal = ({
   activeModal,
   onClose,
@@ -145,14 +149,15 @@ const FilterModal = ({
             </div>
           )} */}
 
-
-            {activeModal === "status" && (
+          {activeModal === "status" && (
             <div className="grid grid-cols-3 gap-2 p-4">
               {ORDER_STATUSES.map((item: OrderStatus) => (
                 <Button
                   key={item}
                   onClick={() => handleStatusSelect(item)}
-                  color={formState.status.includes(item) ? "brand" : "secondary"}
+                  color={
+                    formState.status.includes(item) ? "brand" : "secondary"
+                  }
                   variant={
                     formState.status.includes(item) ? "contained" : "outlined"
                   }
@@ -165,10 +170,11 @@ const FilterModal = ({
             </div>
           )}
 
-
-          <p className="text-sm text-(--color-primary) font-normal border-t px-5 border-(--color-border) pt-5">
-            *You can choose multiple Order type
-          </p>
+          {activeModal !== "date" && (
+            <p className="text-sm text-(--color-primary) font-normal border-t px-5 border-(--color-border) pt-5">
+              *You can choose multiple Order type
+            </p>
+          )}
           <div className="w-full flex justify-center items-center">
             <Button
               className="w-[150px] mt-10"

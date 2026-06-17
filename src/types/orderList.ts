@@ -30,7 +30,7 @@ export const ORDER_STATUSES = [
   "On Hold",
   "In Transit",
 ] as const;
-export type ActiveModal = "date" | "type" | "status" | null;
+export type ActiveModalType = "date" | "type" | "status" | null;
 export interface IFormState {
   date: Date | null;
   type: OrderType[];

@@ -1,19 +1,23 @@
 import type React from "react";
+import { useState } from "react";
+
 import type {
-  ActiveModal,
+  ActiveModalType,
   IFormState,
   Order,
   OrderStatus,
 } from "../../../../../types/orderList";
+
 import FilterModal from "./filterModal";
-import { useState } from "react";
 
 interface ITableProps {
   paginatedData: Order[];
+    activeModal: ActiveModalType;
+  setActiveModal:React.Dispatch<React.SetStateAction<ActiveModalType>>;
 }
 
-const Table: React.FC<ITableProps> = ({ paginatedData }) => {
-  const [activeModal, setActiveModal] = useState<ActiveModal>(null);
+const Table: React.FC<ITableProps> = ({ paginatedData  , activeModal ,setActiveModal}) => {
+  // const [activeModal, setActiveModal] = useState<ActiveModal>(null);
   const [formState, setFormState] = useState<IFormState>({
     date: null,
     type: [],
@@ -28,7 +32,7 @@ const Table: React.FC<ITableProps> = ({ paginatedData }) => {
     "In Transit": "bg-[#F1D4FF] text-[#9B4CC5]",
   };
   return (
-    <div className="w-full h-[400px] mt-5 rounded-2xl border border-(--color-border) overflow-hidden bg-white">
+    <div className="w-full h-[3/4] mt-5 rounded-2xl border border-(--color-border) overflow-hidden bg-white">
       <table className="w-full text-center bg-white">
         <thead>
           <tr>
@@ -66,7 +70,6 @@ const Table: React.FC<ITableProps> = ({ paginatedData }) => {
               <td className="py-3">{item.id}</td>
               <td className="py-3">{item.name}</td>
               <td className="py-3">{item.address}</td>
-
               <td
                 className="py-3 cursor-pointer hover:text-blue-600"
                 onClick={() => {
