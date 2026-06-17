@@ -93,23 +93,122 @@ app.post("/toDoData", (req, res) => {
 });
 
 
+
+// app.post("/toDoData", (req, res) => {
+//   try {
+//     const todos = readTodos();
+//     const newTodo = req.body;
+
+//     if (!newTodo.title) {
+//       return res.status(400).json({
+//         message: "Task name is required",
+//       });
+//     }
+
+//     const newId = todos.length
+//       ? Math.max(...todos.map((u) => u.id)) + 1
+//       : 1;
+
+//     const userTodo = {
+//       id: newId,
+//       ...newTodo,
+//     };
+
+//     todos.push(userTodo);
+
+//     writeTodos(todos);
+
+//     res.status(201).json(userTodo);
+//   } catch (error) {
+//     res.status(500).json({
+//       message: "Error creating todo",
+//       error,
+//     });
+//   }
+// });
+
+
 //delete
 app.delete("/toDoData/:id", (req, res) => {
   try {
-    const toDoData = readUsers();
-    const userId = parseInt(req.params.id);
-    const filteredUsers = users.filter((u) => u.id !== userId);
+    const toDoData = readTodos();
 
-    if (filteredUsers.length === users.length) {
-      return res.status(404).json({ message: "User not found" });
+    const todoId = Number(req.params.id);
+
+    const filteredTodo = toDoData.filter(
+      (todo) => todo.id !== todoId
+    );
+
+    if (filteredTodo.length === toDoData.length) {
+      return res.status(404).json({
+        message: "Todo not found",
+      });
     }
-
-    writeUsers(filteredUsers);
-    res.json({ message: "User deleted successfully" });
+    writeTodos(filteredTodo);
+    res.json({
+      message: "Todo deleted successfully",
+    });
   } catch (error) {
-    res.status(500).json({ message: "Error deleting user", error });
+    res.status(500).json({
+      message: "Error deleting todo",
+      error,
+    });
   }
 });
+
+
+
+//POST 
+
+app.post("/toDoData", (req, res) => {
+  try {
+    const todos = readTodos();
+    const newTodo = req.body;
+
+    if (!newTodo.title) {
+      return res.status(400).json({
+        message: "Task name is required",
+      });
+    }
+
+    const newId = todos.length
+      ? Math.max(...todos.map((u) => u.id)) + 1
+      : 1;
+
+    const userTodo = {
+      id: newId,
+      ...newTodo,
+    };
+
+    todos.push(userTodo);
+
+    writeTodos(todos);
+
+    res.status(201).json(userTodo);
+  } catch (error) {
+    res.status(500).json({
+      message: "Error creating todo",
+      error,
+    });
+  }
+});
+
+// app.post("/toDoData", (req, res) => {
+//   try {
+//     const todos = readTodos();
+//     const newTodo = req.body;
+//     if (!newTodo.title) {
+//       return res.status(400).json({ message: "Task name is required" });
+//     }
+
+//     const newId = todos.length ? Math.max(...todos.map((u) => u.id)) + 1 : 1;
+
+//     const userTodo = {
+//       id: newId,
+//       ...newTodo,
+//     };
+  
+
 
 // GET user by id
 // app.get("/users/:id", (req, res) => {

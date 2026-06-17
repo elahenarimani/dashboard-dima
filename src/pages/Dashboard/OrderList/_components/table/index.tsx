@@ -3,6 +3,7 @@ import type {
   ActiveModal,
   IFormState,
   Order,
+  OrderStatus,
 } from "../../../../../types/orderList";
 import FilterModal from "./filterModal";
 import { useState } from "react";
@@ -19,17 +20,36 @@ const Table: React.FC<ITableProps> = ({ paginatedData }) => {
     status: [],
     order: null,
   });
+  const statusStyles: Record<OrderStatus, string> = {
+    Completed: "bg-[#CCF0EB] text-[#00B69B]",
+    Processing: "bg-[#6226EF] text-[#4B1CC0]",
+    Rejected: "bg-[#FDE7E5] text-[#C75B4A]",
+    "On Hold": "bg-[#FFEDDD] text-[#C27A2C]",
+    "In Transit": "bg-[#F1D4FF] text-[#9B4CC5]",
+  };
   return (
     <div className="w-full h-[400px] mt-5 rounded-2xl border border-(--color-border) overflow-hidden bg-white">
       <table className="w-full text-center bg-white">
         <thead>
           <tr>
-            <th className="p-2 border-b border-b-(--color-border)">ID</th>
-            <th className="p-2 border-b border-b-(--color-border)">NAME</th>
-            <th className="p-2 border-b border-b-(--color-border)">ADDRESS</th>
-            <th className="p-2 border-b border-b-(--color-border)">DATE</th>
-            <th className="p-2 border-b border-b-(--color-border)">TYPE</th>
-            <th className="p-2 border-b border-b-(--color-border)">STATUS</th>
+            <th className="p-2 border-b border-b-(--color-border) w-[5%]">
+              ID
+            </th>
+            <th className="p-2 border-b border-b-(--color-border) w-[5%]">
+              NAME
+            </th>
+            <th className="p-2 border-b border-b-(--color-border) w-[25%]">
+              ADDRESS
+            </th>
+            <th className="p-2 border-b border-b-(--color-border) w-[15%]">
+              DATE
+            </th>
+            <th className="p-2 border-b border-b-(--color-border) w-[32.5%]">
+              TYPE
+            </th>
+            <th className="p-2 border-b border-b-(--color-border) w-[27.5%]">
+              STATUS
+            </th>
           </tr>
         </thead>
 
@@ -89,7 +109,19 @@ const Table: React.FC<ITableProps> = ({ paginatedData }) => {
                   });
                 }}
               >
-                {item.status.join(" • ")}
+                {/* {item.status.join(" • ")} */}
+                <div className="flex flex-wrap justify-center gap-2">
+                  {item.status.map((status) => (
+                    <span
+                      key={status}
+                      className={`px-3 py-1 rounded-full text-sm font-medium ${
+                        statusStyles[status]
+                      }`}
+                    >
+                      {status}
+                    </span>
+                  ))}
+                </div>
               </td>
             </tr>
           ))}

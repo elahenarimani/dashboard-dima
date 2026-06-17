@@ -21,22 +21,6 @@ const OrderList: React.FC = () => {
     );
   };
 
-  // const totalPages = Math.ceil(listData.length / itemsPerPage);
-  // const handlePrev = () => {
-  //   if (page > 1) setPage(page - 1);
-  // };
-
-  // const handleNext = () => {
-  //   if (page < totalPages) setPage(page + 1);
-  // };
-
-// const paginatedData = useMemo(() => {
-//   return listData.slice(
-//     (page - 1) * itemsPerPage,
-//     page * itemsPerPage
-//   );
-// }, [listData, page]);
-
   const paginatedData = listData.slice(
     (page - 1) * itemsPerPage,
     page * itemsPerPage,

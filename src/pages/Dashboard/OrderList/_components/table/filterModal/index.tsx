@@ -121,7 +121,7 @@ const FilterModal = ({
                     formState.type.includes(item) ? "contained" : "outlined"
                   }
                   size="sm"
-                  className="rounded-2xl p-2"
+                  className="rounded-2xl "
                 >
                   {item}
                 </Button>
@@ -129,13 +129,13 @@ const FilterModal = ({
             </div>
           )}
 
-          {activeModal === "status" && (
+          {/* {activeModal === "status" && (
             <div className="flex flex-col gap-2">
               {ORDER_STATUSES.map((status) => (
                 <button
                   key={status}
                   onClick={() => handleStatusSelect(status)}
-                  className={`rounded-lg p-2 hover:bg-gray-100 ${
+                  className={`rounded-lg hover:bg-gray-100 ${
                     formState.status.includes(status) ? "bg-blue-100" : ""
                   }`}
                 >
@@ -143,7 +143,29 @@ const FilterModal = ({
                 </button>
               ))}
             </div>
+          )} */}
+
+
+            {activeModal === "status" && (
+            <div className="grid grid-cols-3 gap-2 p-4">
+              {ORDER_STATUSES.map((item: OrderStatus) => (
+                <Button
+                  key={item}
+                  onClick={() => handleStatusSelect(item)}
+                  color={formState.status.includes(item) ? "brand" : "secondary"}
+                  variant={
+                    formState.status.includes(item) ? "contained" : "outlined"
+                  }
+                  size="sm"
+                  className="rounded-2xl "
+                >
+                  {item}
+                </Button>
+              ))}
+            </div>
           )}
+
+
           <p className="text-sm text-(--color-primary) font-normal border-t px-5 border-(--color-border) pt-5">
             *You can choose multiple Order type
           </p>

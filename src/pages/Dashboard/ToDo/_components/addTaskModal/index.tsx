@@ -1,8 +1,11 @@
-import {  useState, type Dispatch, type SetStateAction } from "react";
+import { useState, type Dispatch, type SetStateAction } from "react";
+import { useParams } from "react-router-dom";
+
+import useToDo from "../../../../../hooks/useToDo";
+
 import Button from "../../../../../components/kit/Button";
 import Input from "../../../../../components/kit/Input";
-import { getTodoData } from "../../../../../services/todo";
-// import type { IToDoData } from "../../../../../types/todo";
+
 type AddTaskModalTypes = {
   activeModal: boolean;
   setActiveModal: Dispatch<SetStateAction<boolean>>;
@@ -13,38 +16,26 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({
   setActiveModal,
   onClose,
 }) => {
+  const { id } = useParams();
+  const { addTodo } = useToDo(id);
+
   const [task, setTask] = useState("");
-//   const [loading , setLoading] = useState(false)
-//    const [todoData, setTodoData] = useState<IToDoData[]>([]);
-//    useEffect(() => {
-//       const fetchChart = async () => {
-//         setLoading(true);
-//         try {
-//           const data = await getTodoData();
-//           setTodoData(data);
-//         } catch (error) {
-//           console.error("Error fetching chart data:", error);
-//         } finally {
-//           setLoading(false);
-//         }
-//       };
-//       fetchChart();
-//     }, []);
-//     if (loading) {
-//       return <p>Loading...</p>;
-//     }
-//     if (todoData.length === 0) {
-//       return <p> Not Found</p>;
-//     }
+  const handleAddTask = async () => {
+    if (!task.trim()) return;
+
+    await addTodo({
+      title: task,
+      done: false,
+    });
+
+    setTask("");
+    setActiveModal(false);
+  };
   if (!activeModal) return null;
-//   console.log(todoData)
   return (
     <>
       {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-black/20 z-40"
-        onClick={onClose}
-      />
+      <div className="fixed inset-0 bg-black/20 z-40" onClick={onClose} />
 
       {/* Modal */}
       <div className="fixed top-1/2 left-1/2 z-50 min-w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white shadow-xl border border-(--color-border)">
@@ -76,8 +67,7 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({
             <Button
               className="w-[150px] mt-10"
               variant="contained"
-              onClick={() => {
-              }}
+              onClick={handleAddTask}
             >
               Apply Now
             </Button>

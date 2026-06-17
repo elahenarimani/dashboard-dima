@@ -1,37 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+
+import useToDo from "../../../hooks/useToDo";
+
 import Button from "../../../components/kit/Button";
-// import { todoData } from "../../../constants/todo";
 import Card from "./_components/card";
 import AddTaskModal from "./_components/addTaskModal";
-import { getTodoData } from "../../../services/todo";
-import type { IToDoData } from "../../../types/todo";
-
 
 const ToDo: React.FC = () => {
+  const { id } = useParams();
+  const { data: todoDataList, isPending  ,deleteTodo} = useToDo(id);
   const [activeModal, setActiveModal] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [todoDataList, settodoDataList] = useState<IToDoData[]>([]);
-  useEffect(() => {
-    const fetchChart = async () => {
-      setLoading(true);
-      try {
-        const data = await getTodoData();
-        settodoDataList(data);
-      } catch (error) {
-        console.error("Error fetching chart data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchChart();
-  }, []);
-  if (loading) {
-    return <p>Loading...</p>;
-  }
+
+  if (isPending && todoDataList.length === 0) {
+  return <p>Loading...</p>;
+}
   if (todoDataList.length === 0) {
     return <p> Not Found</p>;
   }
-console.log("todoList:" , todoDataList)
+  console.log("todoList:", todoDataList);
   return (
     <div className="h-full  flex flex-col justify-start items-start px-5">
       <div className="w-full flex flex-row justify-between items-center">
@@ -46,7 +33,13 @@ console.log("todoList:" , todoDataList)
       </div>
       <div className="w-full flex flex-col justify-start items-center pt-5 gap-3">
         {todoDataList.map((item) => (
-          <Card key={item.id} title={item.title} initialDone={item.done} />
+          <Card
+            key={item.id}
+            title={item.title}
+            initialDone={item.done}
+            id={item.id}
+            onDelete={deleteTodo}
+          />
         ))}
       </div>
       <AddTaskModal
