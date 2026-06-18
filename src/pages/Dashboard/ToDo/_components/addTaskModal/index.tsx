@@ -65,7 +65,7 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({
               variant="contained"
               onClick={handleAddTask}
             >
-              Apply Now
+              Add Task Now
             </Button>
           </div>
         </div>
