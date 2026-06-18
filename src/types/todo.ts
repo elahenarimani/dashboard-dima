@@ -1,5 +1,5 @@
 export interface IToDoData {
-  id: number|string;
+  id: string;
   title: string;
   done: boolean;
   favorit:boolean

@@ -1,43 +1,50 @@
 import { useState } from "react";
-// import { useParams } from "react-router-dom";
 
-import useToDo from "../../../../../hooks/useToDo";
+// import useTodos from "../.././../../../hooks/useTodos";
 
 import Button from "../../../../../components/kit/Button";
 import Input from "../../../../../components/kit/Input";
 
 type AddTaskModalTypes = {
-  activeModal: boolean;
+  // activeModal: boolean;
+  // onClose: () => void;
+    activeModal: boolean;
   onClose: () => void;
+  addTodo: (todo: any) => Promise<any>;
+  refresh: () => Promise<void>;
 };
 const AddTaskModal: React.FC<AddTaskModalTypes> = ({
   activeModal,
   onClose,
+  addTodo,
+  refresh
+  
 }) => {
-  // const { id } = useParams();
-  const { addTodo, setData } = useToDo();
+  // const { addTodo, setData, getData } = useTodos();
 
   const [task, setTask] = useState("");
   const handleAddTask = async () => {
     if (!task.trim()) return;
-    const newTodo = await addTodo({
+    // const newTodo = await addTodo({
+    //   title: task,
+    //   done: false,
+    //   favorit: false,
+    // });
+    // setData((prev) => [newTodo, ...prev]);
+    // getData();
+    await addTodo({
       title: task,
       done: false,
-      favorit:false,
-
+      favorit: false,
     });
-    setData((prev) => [newTodo, ...prev]);
-    // getData();
+    await refresh(); 
     onClose();
     setTask("");
   };
   if (!activeModal) return null;
   return (
     <>
-      {/* Backdrop */}
       <div className="fixed inset-0 bg-black/20 z-40" onClick={onClose} />
-
-      {/* Modal */}
       <div className="fixed top-1/2 left-1/2 z-50 min-w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white shadow-xl border border-(--color-border)">
         <div className="flex items-center justify-between p-4">
           <h3 className="font-bold">Add Task</h3>
