@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
 import useToDo from "../../../../../hooks/useToDo";
 
@@ -14,20 +14,22 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({
   activeModal,
   onClose,
 }) => {
-  const { id } = useParams();
-  const { addTodo , getData , setData} = useToDo(id);
+  // const { id } = useParams();
+  const { addTodo, setData } = useToDo();
 
   const [task, setTask] = useState("");
   const handleAddTask = async () => {
     if (!task.trim()) return;
-    await addTodo({
+    const newTodo = await addTodo({
       title: task,
       done: false,
+      favorit:false,
+
     });
+    setData((prev) => [newTodo, ...prev]);
+    // getData();
+    onClose();
     setTask("");
-    onClose()
-    getData()
-    
   };
   if (!activeModal) return null;
   return (
@@ -40,10 +42,7 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({
         <div className="flex items-center justify-between p-4">
           <h3 className="font-bold">Add Task</h3>
 
-          <button
-           onClick={onClose}
-            className="text-gray-500 hover:text-black"
-          >
+          <button onClick={onClose} className="text-gray-500 hover:text-black">
             ✕
           </button>
         </div>

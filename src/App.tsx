@@ -1,12 +1,14 @@
-
-import { RouterProvider } from 'react-router-dom';
-import './App.css';
-import { router } from './router';
+import { RouterProvider } from "react-router-dom";
+import "./App.css";
+import { router } from "./router";
+import ErrorBoundary from "../ErrorBoundary/index"
 
 export const App: React.FC = () => {
   return (
     <>
-      <RouterProvider router={router} />
+      <ErrorBoundary>
+        <RouterProvider router={router} />
+      </ErrorBoundary>
     </>
   );
 };

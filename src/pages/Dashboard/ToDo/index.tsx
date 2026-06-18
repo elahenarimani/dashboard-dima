@@ -3,19 +3,21 @@ import {  useState } from "react";
 import Button from "../../../components/kit/Button";
 import AddTaskModal from "./_components/addTaskModal";
 import Test from "./_components/test";
+import Card from "./_components/card";
+import { useParams } from "react-router-dom";
+import useToDo from "../../../hooks/useToDo";
 
 const ToDo: React.FC = () => {
-  // const { id } = useParams();
-  // const { data: todoDataList, isPending  ,deleteTodo} = useToDo(id);
-  //  const { data: todoDataList, isPending  } = useToDo(id);
+  const { id } = useParams();
+  const { data: todoDataList, isPending  ,deleteTodo} = useToDo(id);
   const [activeModal, setActiveModal] = useState(false);
 
-//   if (isPending && todoDataList.length === 0) {
-//   return <p>Loading...</p>;
-// }
-//   if (todoDataList.length === 0) {
-//     return <p> Not Found</p>;
-//   }
+  if (isPending && todoDataList.length === 0) {
+  return <p>Loading...</p>;
+}
+  if (todoDataList.length === 0) {
+    return <p> Not Found</p>;
+  }
 
   return (
     <div className="h-full  flex flex-col justify-start items-start px-5">
@@ -29,7 +31,18 @@ const ToDo: React.FC = () => {
           Add New Task
         </Button>
       </div>
-      <Test  />
+       <div className="w-full flex flex-col justify-start items-center pt-5 gap-5">
+      {todoDataList.map((item) => (
+        <Card
+          key={item.id}
+          title={item.title}
+          initialDone={item.done}
+          id={item.id}
+          onDelete={deleteTodo}
+        />
+      ))}
+    </div>
+      {/* <Test  /> */}
       <AddTaskModal
         activeModal={activeModal}
         // setActiveModal={setActiveModal}

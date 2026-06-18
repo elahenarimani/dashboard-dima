@@ -1,45 +1,8 @@
-// import { useEffect, useState } from "react";
-// import type { IToDoData } from "../types/todo";
-
-// const useTodos = (id?: number) => {
-//   const [data, setData] = useState<IToDoData[] | IToDoData | null>(
-//     id ? null : []
-//   );
-//   const [isPending, setLoading] = useState(false);
-//   const [error, setError] = useState<string | null>(null);
-
-//   const url = `http://localhost:5000/toDoData${
-//     id ? `/${id}` : ""
-//   }`;
-
-//   const getTodos = async () => {
-//     try {
-//       setLoading(true);
-//       const res = await fetch(url);
-//       const result = await res.json();
-//       setData(result);
-//     } catch (error) {
-//       console.log({ error });
-//       setError("Failed to fetch todos");
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   useEffect(() => {
-//     getTodos();
-//   }, []);
-
-//   return { data, isPending, error, reFetch: getTodos };
-// };
-
-// export default useTodos;
-
 import { useEffect, useState } from "react";
 import axios from "axios";
-import type { IToDoData } from "../types/todo";
+import type { CreateTodo, IToDoData } from "../types/todo";
 
-const useTodos = (id) => {
+const useTodos = (id?:number) => {
   const [data, setData] = useState<IToDoData[]>([]);
   const [isPending, setLoading] = useState(false);
   const [isMutating, setIsMutating] = useState(false);
@@ -66,7 +29,7 @@ const useTodos = (id) => {
 
   //delete
 
-const deleteTodo = async (id) => {
+const deleteTodo = async (id:number | string) => {
   try {
     setIsMutating(true);
 
@@ -85,49 +48,23 @@ const deleteTodo = async (id) => {
   }
 };
 
-//   const deleteTodo = async (id: number) => {
-//     try {
-//       await axios.delete(`http://localhost:5000/toDoData/${id}`);
+//add
 
-//       getData();
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-
-  //add
-//   const addTodo = async (todo: Omit<IToDoData, "id">) => {
-//     try {
-//       setLoading(true);
-
-//       await axios.post("http://localhost:5000/toDoData", todo);
-
-//       getData(); // refresh list
-//     } catch (error) {
-//       console.log(error);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-const addTodo = async (todo) => {
-  
+const addTodo = async (todo: CreateTodo) => {
   try {
     setIsMutating(true);
-    await axios.post(
+
+    const res = await axios.post(
       "http://localhost:5000/toDoData",
       todo
     );
 
-    getData();
-  } catch (error) {
-      console.log({ error });
-      // setError(error)
-    }
-  finally {
+    return res.data;
+  } finally {
     setIsMutating(false);
   }
 };
 
-  return { data, isPending, isMutating, reFetch: getData, deleteTodo, addTodo ,setData };
+  return { data , isPending , isMutating , getData , deleteTodo , addTodo , setData };
 };
 export default useTodos;

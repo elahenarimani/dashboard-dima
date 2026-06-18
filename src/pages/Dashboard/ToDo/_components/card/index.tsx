@@ -10,7 +10,7 @@ import Star from "../../../../../assets/icons/Star.svg?react";
 type CardProps = {
   title: string;
   initialDone?: boolean;
-  id: number;
+  id: number ;
   onDelete: (id: number) => void;
 };
 const Card: React.FC<CardProps> = ({
