@@ -110,6 +110,7 @@ const deleteTodo = async (id) => {
 //     }
 //   };
 const addTodo = async (todo) => {
+  
   try {
     // setIsMutating(true);
     await axios.post(
