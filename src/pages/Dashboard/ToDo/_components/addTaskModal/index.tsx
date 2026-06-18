@@ -15,7 +15,7 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({
   onClose,
 }) => {
   const { id } = useParams();
-  const { addTodo } = useToDo(id);
+  const { addTodo , getData , setData} = useToDo(id);
 
   const [task, setTask] = useState("");
   const handleAddTask = async () => {
@@ -24,8 +24,10 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({
       title: task,
       done: false,
     });
-
     setTask("");
+    onClose()
+    getData()
+    
   };
   if (!activeModal) return null;
   return (

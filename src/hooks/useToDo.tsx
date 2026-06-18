@@ -74,7 +74,7 @@ const deleteTodo = async (id) => {
       `http://localhost:5000/toDoData/${id}`
     );
 
-    // getData();
+    getData();
   }catch (error) {
       console.log({ error });
       // setError(error)
@@ -112,22 +112,22 @@ const deleteTodo = async (id) => {
 const addTodo = async (todo) => {
   
   try {
-    // setIsMutating(true);
+    setIsMutating(true);
     await axios.post(
       "http://localhost:5000/toDoData",
       todo
     );
 
-    // getData();
+    getData();
   } catch (error) {
       console.log({ error });
       // setError(error)
     }
   finally {
-    // setIsMutating(false);
+    setIsMutating(false);
   }
 };
 
-  return { data, isPending, isMutating, reFetch: getData, deleteTodo, addTodo };
+  return { data, isPending, isMutating, reFetch: getData, deleteTodo, addTodo ,setData };
 };
 export default useTodos;
