@@ -2,12 +2,11 @@ import { useState } from "react";
 
 import Button from "@/components/kit/Button";
 import Input from "@/components/kit/Input";
-import type { CreateTodo} from "@/types/todo";
+
+import type { CreateTodo } from "@/types/todo";
 
 type AddTaskModalTypes = {
-  // activeModal: boolean;
-  // onClose: () => void;
-    activeModal: boolean;
+  activeModal: boolean;
   onClose: () => void;
   addTodo: (todo: CreateTodo) => Promise<CreateTodo>;
   refresh: () => Promise<void>;
@@ -16,27 +15,18 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({
   activeModal,
   onClose,
   addTodo,
-  refresh
-  
+  refresh,
 }) => {
-  // const { addTodo, setData, getData } = useTodos();
 
   const [task, setTask] = useState("");
   const handleAddTask = async () => {
-    if (!task.trim()) return;
-    // const newTodo = await addTodo({
-    //   title: task,
-    //   done: false,
-    //   favorit: false,
-    // });
-    // setData((prev) => [newTodo, ...prev]);
-    // getData();
+    if (!task) return;
     await addTodo({
       title: task,
       done: false,
       favorit: false,
     });
-    await refresh(); 
+    await refresh();
     onClose();
     setTask("");
   };

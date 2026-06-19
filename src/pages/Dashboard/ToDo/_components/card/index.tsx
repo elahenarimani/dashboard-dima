@@ -6,14 +6,9 @@ import Input from "@/components/kit/Input";
 
 import Bin from "@/assets/icons/Bin.svg?react";
 import Star from "@/assets/icons/Star.svg?react";
-import useTodos from "@/hooks/useTodos";
 
 type CardProps = {
-  // title: string;
-  // initialDone?: boolean;
-  // id: string ;
-  // onDelete: (id: string) => void;
-    title: string;
+  title: string;
   initialDone?: boolean;
   id: string;
   onDelete: (id: string) => void;
@@ -27,13 +22,11 @@ const Card: React.FC<CardProps> = ({
   const [isChecked, setIsChecked] = useState(initialDone);
   const [toast, setToast] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
-    const { data: todoDataList} = useTodos();
 
-  if (todoDataList.length === 0) {
-    return <p> Not Found add new data</p>;
-  }
   return (
-    <div className={`border border-(--color-border) w-full rounded-xl px-6 py-5 transition-colors duration-300  ${ isChecked ? "bg-(--color-primary)" : "bg-[#FBFCFF]"}`}>
+    <div
+      className={`border border-(--color-border) w-full rounded-xl px-6 py-5 transition-colors duration-300  ${isChecked ? "bg-(--color-primary)" : "bg-[#FBFCFF]"}`}
+    >
       <Toast
         message="Text Is Done"
         show={toast}

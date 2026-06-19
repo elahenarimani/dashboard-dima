@@ -7,6 +7,7 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from "recharts";
+
 import { getChartData } from "@/services/chart";
 import { useEffect, useState } from "react";
 import type { IChartData } from "@/types/chart";
@@ -19,8 +20,6 @@ const RenderLineChart = () => {
       setLoading(true);
       try {
         const data = await getChartData();
-        console.log("API Response:", data);
-
         setChartData(data);
       } catch (error) {
         console.error("Error fetching chart data:", error);
@@ -74,17 +73,8 @@ const RenderLineChart = () => {
         <CartesianGrid horizontal={true} vertical={false} stroke="#e0e0e0" />
         {/* Pass the custom tooltip to the Tooltip component */}
         <Tooltip
-          contentStyle={{
-            borderRadius: "8px",
-            border: "none",
-            boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-          }}
-          formatter={(value) => {
-            if (typeof value === "number") {
-              return [`${value} sail`, ""];
-            }
-            return [`${value}`, ""];
-          }}
+          formatter={(value) => 
+            [`${value * 37649000} sale`, null]}
           labelFormatter={() => ""}
         />
         <Area

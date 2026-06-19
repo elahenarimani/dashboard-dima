@@ -1,7 +1,7 @@
-import ArrowDown from "../../../assets/icons/ArrowDown.svg?react";
-import profilePic from "../../../assets/icons/profilePic.jpg";
-import Notifiction from "../../../assets/icons/Notifiction.svg?react";
-import dashboardLogo from "../../../assets/icons/dashboardLogo.png";
+import ArrowDown from "@/assets/icons/ArrowDown.svg?react";
+import profilePic from "@/assets/icons/profilePic.jpg";
+import Notifiction from "@/assets/icons/Notifiction.svg?react";
+import dashboardLogo from "@/assets/icons/dashboardLogo.png";
 
 const Header: React.FC = () => {
   return (
@@ -16,7 +16,7 @@ const Header: React.FC = () => {
       <div className=" flex justify-between items-center gap-8">
         <div className="relative inline-block">
           <Notifiction />
-          <span className="absolute -top-2 -right-2 flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-red-500 text-white text-[10px] font-bold pt-1">
+          <span className="absolute -top-2 -right-2 flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-red-500 text-white text-[10px] font-bold ">
             5
           </span>
         </div>

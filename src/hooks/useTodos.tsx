@@ -19,7 +19,6 @@ const useTodos = (id?:number) => {
       setData(res.data);
     } catch (error) {
       console.log({ error });
-      // setError(error)
     } finally {
       setLoading(false);
     }
@@ -33,15 +32,12 @@ const useTodos = (id?:number) => {
 const deleteTodo = async (id:number | string) => {
   try {
     setIsMutating(true);
-
     await axios.delete(
       `http://localhost:5000/toDoData/${id}`
     );
-
     getData();
   }catch (error) {
       console.log({ error });
-      // setError(error)
     }  
   
   finally {
@@ -54,12 +50,10 @@ const deleteTodo = async (id:number | string) => {
 const addTodo = async (todo: CreateTodo) => {
   try {
     setIsMutating(true);
-
     const res = await axios.post(
       "http://localhost:5000/toDoData",
       todo
     );
-
     return res.data;
   } finally {
     setIsMutating(false);

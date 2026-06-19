@@ -24,21 +24,27 @@ class ErrorBoundary extends Component<Props, State> {
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error("Error:", error);
     console.error("Error Info:", errorInfo);
-
-    // اینجا می‌تونی لاگ به سرویس‌هایی مثل Sentry بفرستی
-    // logErrorToMyService(error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
       return (
-        <div>
-          <h1>Something went wrong.</h1>
-          <button onClick={() => window.location.reload()}>
-            Reload
-          </button>
-        </div>
-      );
+    <div>
+      <h1>Something went wrong.</h1>
+
+      <button
+        onClick={() => {
+          window.location.href = "/dashboard/chart";
+        }}
+      >
+        Go to Dashboard
+      </button>
+
+      <button onClick={() => window.location.reload()}>
+        Reload
+      </button>
+    </div>
+  );
     }
 
     return this.props.children;

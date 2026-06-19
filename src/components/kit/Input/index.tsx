@@ -32,7 +32,7 @@ const Input: React.FC<InputProps> = ({
           className="border px-3 py-2 rounded w-full outline-none"
         />
       )}
-
+      
       {type === "checkbox" && (
         <input
           aria-label="input"

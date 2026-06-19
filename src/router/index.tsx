@@ -4,9 +4,10 @@ import { lazy } from "react";
 
 import AppRoot from "../pages";
 import Dashboard from "../pages/Dashboard";
+import Chart from "@/pages/Dashboard/Chart";
 
 
-const Chart = lazy(() => import("../pages/Dashboard/Chart"))
+
 const OrderList = lazy(() => import("../pages/Dashboard/OrderList"));
 const ToDo = lazy(() => import("../pages/Dashboard/ToDo"));
 
