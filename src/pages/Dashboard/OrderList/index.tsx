@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useOrders } from "../../../context/OrderContext";
+import { useOrders } from "@/context/OrderContext";
 
-import type { ActiveModalType } from "../../../types/orderList";
-import { data, itemsPerPage } from "../../../../src/constants/orderData";
+import type { ActiveModalType } from "@/types/orderList";
+import { data, itemsPerPage } from "@/constants/orderData";
 
 import Table from "./_components/table";
 import FilterBar from "./_components/filterBar";
@@ -12,10 +12,13 @@ const OrderList: React.FC = () => {
   const { listData, setListData } = useOrders();
   const [activeModal, setActiveModal] = useState<ActiveModalType>(null);
   const [page, setPage] = useState<number>(1);
+
   const sortData = () => {
     setListData((prev) =>
       [...prev].sort(
-        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+        // (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+        (a, b) => (a.date).getTime() - (b.date).getTime(), 
+      // (a,b) => console.log("(a.date)",(a.date)) 
       ),
     );
   };
@@ -24,7 +27,7 @@ const OrderList: React.FC = () => {
     (page - 1) * itemsPerPage,
     page * itemsPerPage,
   );
-  console.log("data", data);
+  console.log("listData", data);
   return (
     <div className="h-full bg-[#F9F9F9] flex flex-col justify-start items-start px-5">
       <p className="text-(--color-text) font-bold text-3xl ">OrderList</p>

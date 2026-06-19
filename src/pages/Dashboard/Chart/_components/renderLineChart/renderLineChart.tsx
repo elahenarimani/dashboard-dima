@@ -7,58 +7,10 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from "recharts";
-import { getChartData } from "../../../../../services/chart";
+import { getChartData } from "@/services/chart";
 import { useEffect, useState } from "react";
-import type { IChartData } from "../../../../../types/chart";
+import type { IChartData } from "@/types/chart";
 
-// const data = [
-//   { name: "5k", uv: 0.2 },
-//   { name: "10k", uv: 0.8 },
-//   { name: "15k", uv: 0.6 },
-//   { name: "20k", uv: 0.5 },
-//   { name: "25k", uv: 0.32 },
-//   { name: "30k", uv: 0.7 },
-//   { name: "35k", uv: 0.8 },
-//   { name: "40k", uv: 0.6 },
-//   { name: "45k", uv: 0.9 },
-//   { name: "50k", uv: 0.349 },
-//   { name: "55k", uv: 0.7 },
-//   { name: "60k", uv: 0.2 },
-// ];
-// interface TooltipPayload {
-//   name: string;
-//   value: number | string;
-//   color?: string;
-//   fill?: string;
-//   unit?: string;
-//   payload?: any;
-//   dataKey?: string;
-// }
-// interface CustomTooltipProps {
-//   active: boolean;
-//   payload: TooltipPayload[] | undefined;
-// }
-// const CustomTooltip = ({ active, payload }: CustomTooltipProps ) => {
-//   if (active && payload && payload.length) {
-//     return (
-//       <div
-//         className="custom-tooltip"
-//         style={{
-//           backgroundColor: "#4880FF",
-//           // border: "1px solid #ccc",
-//           // padding: "1px",
-//           color:"white",
-//           height:"27px"
-//         }}
-//       >
-//         {/* Display only the 'uv' value */}
-//         <p>{`uv: ${payload[0].value}`}</p>
-//       </div>
-//     );
-//   }
-
-//   return null;
-// };
 const RenderLineChart = () => {
   const [chartData, setChartData] = useState<IChartData[]>([]);
   const [loading, setLoading] = useState(true);
@@ -129,7 +81,7 @@ const RenderLineChart = () => {
           }}
           formatter={(value) => {
             if (typeof value === "number") {
-              return [`${value} فروش`, ""];
+              return [`${value} sail`, ""];
             }
             return [`${value}`, ""];
           }}
@@ -142,9 +94,6 @@ const RenderLineChart = () => {
           fill="url(#gradientColor)" // Use the defined gradient
           dot={{ fill: "#4379EE", r: 3 }} // Show dots on each data point
         />
-        {/* <Tooltip content={<CustomTooltip />} 
-        //show data by hover
-        /> */}
       </AreaChart>
     </ResponsiveContainer>
   );

@@ -1,10 +1,10 @@
-import ArrowLeft from "../../../../../assets/icons/ArrowLeft.svg?react";
-import ArrowRight from "../../../../../assets/icons/arrowRight.svg?react";
+import ArrowLeft from "@/assets/icons/ArrowLeft.svg?react";
+import ArrowRight from "@/assets/icons/arrowRight.svg?react";
 
-import Button from "../../../../../components/kit/Button";
+import Button from "@/components/kit/Button";
 
-import { itemsPerPage } from "../../../../../../src/constants/orderData";
-import { useOrders } from "../../../../../context/OrderContext";
+import { itemsPerPage } from "@/constants/orderData";
+import { useOrders } from "@/context/OrderContext";
 
 interface PaginationProps {
   page: number;
@@ -24,7 +24,7 @@ const Pagination: React.FC<PaginationProps> = ({ page, setPage }) => {
     if (page < totalPages) setPage(page + 1);
   };
   return (
-    <div className="w-full flex justify-between items-center pt-5">
+    <div className="w-full  flex justify-between items-center py-5">
       <div>
         <p className="text-(--color-border)">
           showing {startItem} - {endItem} of {listData.length}
@@ -38,23 +38,22 @@ const Pagination: React.FC<PaginationProps> = ({ page, setPage }) => {
           disabled={page === 1}
           className="p-x-2 hover:bg-gray-100 disabled:opacity-40"
         >
-          <ArrowLeft className="text-(--color-svg)" />
+          <ArrowLeft />
         </Button>
 
         <span className="w-full border-r border-(--color-border)" />
 
         <div className="w-full h-full  border-r border-(--color-border) text-sm font-medium">
-          {/* {page} / {totalPages} */}
         </div>
 
         <Button
           variant="text"
           size="sm"
           onClick={handleNext}
-          disabled={page === totalPages}
+          disabled={page >= totalPages}
           className="p-x-2 hover:bg-gray-100 disabled:opacity-40"
         >
-          <ArrowRight className="text-(--color-svg)" />
+          <ArrowRight />
         </Button>
       </div>
     </div>

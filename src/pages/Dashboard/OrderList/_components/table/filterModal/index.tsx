@@ -3,16 +3,17 @@ import { type Dispatch, type SetStateAction } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 
 import {
-  ORDER_STATUSES,
   type ActiveModalType,
   type IFormState,
   type OrderStatus,
   type OrderType,
-} from "../../../../../../types/orderList";
+} from "@/types/orderList";
 
-import Button from "../../../../../../components/kit/Button";
-import { useOrders } from "../../../../../../context/OrderContext";
-import { ORDER_TYPES } from "../../../../../../constants/orderData";
+import Button from "@/components/kit/Button";
+
+import { useOrders } from "@/context/OrderContext";
+
+import { ORDER_STATUSES, ORDER_TYPES } from "@/constants/orderData";
 import "./filterModal.css";
 
 type FilterModalTypes = {
@@ -32,7 +33,6 @@ const FilterModal = ({
 }: FilterModalTypes) => {
   const { setListData } = useOrders();
   const handleTypeSelect = (type: OrderType) => {
-    console.log("clicked", type);
     setFormState((prev) => ({
       ...prev,
       type: prev.type.includes(type)
@@ -49,7 +49,6 @@ const FilterModal = ({
     }));
   };
   const handleApply = () => {
-    console.log("hereeeeeeeee", formState);
     if (!formState.order) return;
 
     setListData((prev) =>
@@ -77,12 +76,11 @@ const FilterModal = ({
   if (!activeModal) return null;
 
   return (
-    <>
-      {/* Backdrop */}
+    <div>
       <div className="fixed inset-0 bg-black/20 z-40" onClick={onClose} />
 
       {/* Modal */}
-      <div className="fixed top-1/2 left-1/2 z-50 min-w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white shadow-xl border border-(--color-border)">
+      <div className="fixed top-1/2 left-1/2 z-50 min-w-[310px] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white shadow-xl border border-(--color-border)">
         <div className="flex  items-center justify-between  p-4">
           <h3 className="font-bold">
             {activeModal === "date" && "Date Filter"}
@@ -115,7 +113,7 @@ const FilterModal = ({
           )}
 
           {activeModal === "type" && (
-            <div className="grid grid-cols-3 gap-2 p-4">
+            <div className="w-full grid grid-cols-3 gap-2 p-4">
               {ORDER_TYPES.map((item: OrderType) => (
                 <Button
                   key={item}
@@ -133,24 +131,8 @@ const FilterModal = ({
             </div>
           )}
 
-          {/* {activeModal === "status" && (
-            <div className="flex flex-col gap-2">
-              {ORDER_STATUSES.map((status) => (
-                <button
-                  key={status}
-                  onClick={() => handleStatusSelect(status)}
-                  className={`rounded-lg hover:bg-gray-100 ${
-                    formState.status.includes(status) ? "bg-blue-100" : ""
-                  }`}
-                >
-                  {status}
-                </button>
-              ))}
-            </div>
-          )} */}
-
           {activeModal === "status" && (
-            <div className="grid grid-cols-3 gap-2 p-4">
+            <div className="min-w-full grid grid-cols-3 gap-2 p-4">
               {ORDER_STATUSES.map((item: OrderStatus) => (
                 <Button
                   key={item}
@@ -189,7 +171,7 @@ const FilterModal = ({
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

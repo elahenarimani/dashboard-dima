@@ -23,13 +23,6 @@ export type Order = {
   type: OrderType[];
   status: OrderStatus[];
 };
-export const ORDER_STATUSES = [
-  "Completed",
-  "Processing",
-  "Rejected",
-  "On Hold",
-  "In Transit",
-] as const;
 export type ActiveModalType = "date" | "type" | "status" | null;
 export interface IFormState {
   date: Date | null;

@@ -1,16 +1,15 @@
 import { useState } from "react";
 
-// import useTodos from "../.././../../../hooks/useTodos";
-
-import Button from "../../../../../components/kit/Button";
-import Input from "../../../../../components/kit/Input";
+import Button from "@/components/kit/Button";
+import Input from "@/components/kit/Input";
+import type { CreateTodo} from "@/types/todo";
 
 type AddTaskModalTypes = {
   // activeModal: boolean;
   // onClose: () => void;
     activeModal: boolean;
   onClose: () => void;
-  addTodo: (todo: any) => Promise<any>;
+  addTodo: (todo: CreateTodo) => Promise<CreateTodo>;
   refresh: () => Promise<void>;
 };
 const AddTaskModal: React.FC<AddTaskModalTypes> = ({

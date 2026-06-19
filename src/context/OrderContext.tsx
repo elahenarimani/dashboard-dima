@@ -7,8 +7,8 @@ import {
   type SetStateAction,
 } from "react";
 
-import { data } from "../constants/orderData";
-import type { Order } from "../types/orderList";
+import { data } from "@/constants/orderData";
+import type { Order } from "@/types/orderList";
 
 interface OrderContextType {
   listData: Order[];
@@ -46,3 +46,4 @@ export const useOrders = () => {
 
   return context;
 };
+

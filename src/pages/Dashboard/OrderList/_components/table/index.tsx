@@ -6,18 +6,17 @@ import type {
   IFormState,
   Order,
   OrderStatus,
-} from "../../../../../types/orderList";
+} from "@/types/orderList";
 
 import FilterModal from "./filterModal";
 
 interface ITableProps {
   paginatedData: Order[];
-    activeModal: ActiveModalType;
+  activeModal: ActiveModalType;
   setActiveModal:React.Dispatch<React.SetStateAction<ActiveModalType>>;
 }
 
 const Table: React.FC<ITableProps> = ({ paginatedData  , activeModal ,setActiveModal}) => {
-  // const [activeModal, setActiveModal] = useState<ActiveModal>(null);
   const [formState, setFormState] = useState<IFormState>({
     date: null,
     type: [],
@@ -26,32 +25,33 @@ const Table: React.FC<ITableProps> = ({ paginatedData  , activeModal ,setActiveM
   });
   const statusStyles: Record<OrderStatus, string> = {
     Completed: "bg-[#CCF0EB] text-[#00B69B]",
-    Processing: "bg-[#6226EF] text-[#4B1CC0]",
+    Processing: "bg-[#E0D4FC] text-[#6226EF]",
     Rejected: "bg-[#FDE7E5] text-[#C75B4A]",
     "On Hold": "bg-[#FFEDDD] text-[#C27A2C]",
     "In Transit": "bg-[#F1D4FF] text-[#9B4CC5]",
   };
   return (
     <div className="w-full h-[3/4] mt-5 rounded-2xl border border-(--color-border) overflow-hidden bg-white">
+      <div className="h-full overflow-y-auto">
       <table className="w-full text-center bg-white">
         <thead>
           <tr>
-            <th className="p-2 border-b border-b-(--color-border) w-[5%]">
+            <th className="p-2 border-b border-b-(--color-border) w-[5%] font-extrabold text-sm">
               ID
             </th>
-            <th className="p-2 border-b border-b-(--color-border) w-[5%]">
+            <th className="p-2 border-b border-b-(--color-border) w-[5%] font-extrabold text-sm">
               NAME
             </th>
-            <th className="p-2 border-b border-b-(--color-border) w-[25%]">
+            <th className="p-2 border-b border-b-(--color-border) w-[25%] font-extrabold text-sm">
               ADDRESS
             </th>
-            <th className="p-2 border-b border-b-(--color-border) w-[15%]">
+            <th className="p-2 border-b border-b-(--color-border) w-[15%] font-extrabold text-sm">
               DATE
             </th>
-            <th className="p-2 border-b border-b-(--color-border) w-[32.5%]">
+            <th className="p-2 border-b border-b-(--color-border) w-[32.5%] font-extrabold text-sm">
               TYPE
             </th>
-            <th className="p-2 border-b border-b-(--color-border) w-[27.5%]">
+            <th className="p-2 border-b border-b-(--color-border) w-[27.5%] font-extrabold text-sm">
               STATUS
             </th>
           </tr>
@@ -67,11 +67,11 @@ const Table: React.FC<ITableProps> = ({ paginatedData  , activeModal ,setActiveM
                   : "border-b border-(--color-border)"
               }`}
             >
-              <td className="py-3">{item.id}</td>
-              <td className="py-3">{item.name}</td>
-              <td className="py-3">{item.address}</td>
+              <td className="py-3 font-semibold text-sm">{item.id}</td>
+              <td className="py-3 font-semibold text-sm">{item.name}</td>
+              <td className="py-3 font-semibold text-sm">{item.address}</td>
               <td
-                className="py-3 cursor-pointer hover:text-blue-600"
+                className="py-3 cursor-pointer font-semibold text-sm hover:text-blue-600"
                 onClick={() => {
                   setActiveModal("date");
                   setFormState({
@@ -86,7 +86,7 @@ const Table: React.FC<ITableProps> = ({ paginatedData  , activeModal ,setActiveM
               </td>
 
               <td
-                className="py-3 cursor-pointer hover:text-blue-600 px-2"
+                className="py-3 cursor-pointer hover:text-blue-600 font-semibold text-sm px-2"
                 onClick={() => {
                   setActiveModal("type");
                   setFormState({
@@ -101,7 +101,7 @@ const Table: React.FC<ITableProps> = ({ paginatedData  , activeModal ,setActiveM
               </td>
 
               <td
-                className="py-3 cursor-pointer hover:text-blue-600"
+                className="py-3 cursor-pointer font-semibold text-sm hover:text-blue-600"
                 onClick={() => {
                   setActiveModal("status");
                   setFormState({
@@ -112,7 +112,6 @@ const Table: React.FC<ITableProps> = ({ paginatedData  , activeModal ,setActiveM
                   });
                 }}
               >
-                {/* {item.status.join(" • ")} */}
                 <div className="flex flex-wrap justify-center gap-2">
                   {item.status.map((status) => (
                     <span
@@ -137,6 +136,7 @@ const Table: React.FC<ITableProps> = ({ paginatedData  , activeModal ,setActiveM
         formState={formState}
         setFormState={setFormState}
       />
+    </div>
     </div>
   );
 };
