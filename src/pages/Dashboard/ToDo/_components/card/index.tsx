@@ -31,6 +31,7 @@ const Card: React.FC<CardProps> = ({
         message="Task Is Done"
         show={toast}
         onClose={() => setToast(false)}
+        type="success"
       />
 
       <div className="w-full flex justify-between items-center">

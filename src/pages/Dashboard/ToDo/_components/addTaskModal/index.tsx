@@ -10,13 +10,11 @@ type AddTaskModalTypes = {
   activeModal: boolean;
   onClose: () => void;
   addTodo: (todo: CreateTodo) => Promise<CreateTodo>;
-  refresh: () => Promise<void>;
 };
 const AddTaskModal: React.FC<AddTaskModalTypes> = ({
   activeModal,
   onClose,
   addTodo,
-  refresh,
 }) => {
   const [task, setTask] = useState("");
   const [toast, setToast] = useState(false);
@@ -34,7 +32,6 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({
 
   const handleAddTask = async () => {
     if (!task.trim()) return;
-
     try {
       await addTodo({
         title: task,
@@ -42,7 +39,7 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({
         favorit: false,
       });
 
-      await refresh();
+      // await refresh();
       setTask("");
       onClose();
     } catch (error) {
@@ -60,6 +57,7 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({
           message="Failed to add task. Please check your internet connection."
           show={toast}
           onClose={() => setToast(false)}
+          type="error"
         />
         <div className="flex items-center justify-between p-4">
           <h3 className="font-bold">Add Task</h3>

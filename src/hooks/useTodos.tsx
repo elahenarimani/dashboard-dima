@@ -54,6 +54,7 @@ const addTodo = async (todo: CreateTodo) => {
       "http://localhost:5000/toDoData",
       todo
     );
+    await getData(); 
     return res.data;
   } finally {
     setIsMutating(false);
