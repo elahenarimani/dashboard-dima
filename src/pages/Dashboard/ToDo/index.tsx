@@ -9,11 +9,11 @@ const ToDo: React.FC = () => {
   const todos = useTodos();
   const [activeModal, setActiveModal] = useState(false);
   if (todos.isPending && todos.data.length === 0) {
-    return <div className="flex w-full justify-center items-center">
-          <p className="text-center pt-50 font-extrabold font-3xl">
-            Loading...
-          </p>
-        </div>;
+    return (
+      <div className="flex w-full justify-center items-center">
+        <p className="text-center pt-50 font-extrabold font-3xl">Loading...</p>
+      </div>
+    );
   }
   return (
     <div className="h-full  flex flex-col justify-start items-start px-5">

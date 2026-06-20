@@ -30,10 +30,18 @@ const RenderLineChart = () => {
     fetchChart();
   }, []);
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="flex justify-center items-center w-full h-full font-extrabold text-4xl">
+        <p>Loading...</p>
+      </div>
+    );
   }
   if (chartData.length === 0) {
-    return <p>Chart Data Not Found</p>;
+    return (
+      <div className="flex justify-center items-center w-full h-full font-extrabold text-4xl">
+        <p>Not Found Any Chart</p>
+      </div>
+    );
   }
   console.log("chartData:", chartData);
   return (
@@ -73,8 +81,7 @@ const RenderLineChart = () => {
         <CartesianGrid horizontal={true} vertical={false} stroke="#e0e0e0" />
         {/* Pass the custom tooltip to the Tooltip component */}
         <Tooltip
-          formatter={(value) => 
-            [`${value * 37649000} sale`, null]}
+          formatter={(value) => [`${(Number(value) * 100000000).toLocaleString()}`, null]}
           labelFormatter={() => ""}
         />
         <Area

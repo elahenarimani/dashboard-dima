@@ -16,9 +16,9 @@ const OrderList: React.FC = () => {
   const sortData = () => {
     setListData((prev) =>
       [...prev].sort(
+        (a, b) => a.date.getTime() - b.date.getTime(),
         // (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
-        (a, b) => (a.date).getTime() - (b.date).getTime(), 
-      // (a,b) => console.log("(a.date)",(a.date)) 
+        // (a,b) => console.log("(a.date)",(a.date))
       ),
     );
   };

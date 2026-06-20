@@ -4,6 +4,7 @@ import Button from "@/components/kit/Button";
 import Input from "@/components/kit/Input";
 
 import type { CreateTodo } from "@/types/todo";
+import Toast from "@/components/app/Toast";
 
 type AddTaskModalTypes = {
   activeModal: boolean;
@@ -17,24 +18,49 @@ const AddTaskModal: React.FC<AddTaskModalTypes> = ({
   addTodo,
   refresh,
 }) => {
-
   const [task, setTask] = useState("");
+  const [toast, setToast] = useState(false);
+  // const handleAddTask = async () => {
+  //   if (!task) return;
+  //   await addTodo({
+  //     title: task,
+  //     done: false,
+  //     favorit: false,
+  //   });
+  //   await refresh();
+  //   onClose();
+  //   setTask("");
+  // };
+
   const handleAddTask = async () => {
-    if (!task) return;
-    await addTodo({
-      title: task,
-      done: false,
-      favorit: false,
-    });
-    await refresh();
-    onClose();
-    setTask("");
+    if (!task.trim()) return;
+
+    try {
+      await addTodo({
+        title: task,
+        done: false,
+        favorit: false,
+      });
+
+      await refresh();
+      setTask("");
+      onClose();
+    } catch (error) {
+      console.error("Failed to add todo:", error);
+      setToast(true);
+    }
   };
+
   if (!activeModal) return null;
   return (
     <>
       <div className="fixed inset-0 bg-black/20 z-40" onClick={onClose} />
       <div className="fixed top-1/2 left-1/2 z-50 min-w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white shadow-xl border border-(--color-border)">
+        <Toast
+          message="Failed to add task. Please check your internet connection."
+          show={toast}
+          onClose={() => setToast(false)}
+        />
         <div className="flex items-center justify-between p-4">
           <h3 className="font-bold">Add Task</h3>
 
