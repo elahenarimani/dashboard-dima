@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import ToDo from "../../../../assets/icons/ToDo.svg?react";
 import Menu from "../../../../assets/icons/Menu.svg?react";
 import OrderList from "../../../../assets/icons/Orderlist.svg?react";
-import Dashboard from "../../../../assets/icons/dashboard.svg?react";
+import Dashboard from "../../../../assets/icons/Dashboard.svg?react";
 
 interface DashboardNavProps {
   className?: string;
