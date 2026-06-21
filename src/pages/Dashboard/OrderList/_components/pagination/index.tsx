@@ -1,5 +1,5 @@
-import ArrowLeft from "@/assets/icons/ArrowLeft.svg?react";
-import ArrowRight from "@/assets/icons/arrowRight.svg?react";
+import ArrowLeft from "../../../../../assets/icons/ArrowLeft.svg?react";
+import ArrowRight from "../../../../../assets/icons/ArrowRight.svg?react";
 
 import Button from "../../../../../components/kit/Button";
 
