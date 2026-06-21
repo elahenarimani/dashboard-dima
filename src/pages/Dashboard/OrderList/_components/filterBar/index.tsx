@@ -2,10 +2,10 @@ import type { ActiveModalType } from "../../../../../types/orderList";
 
 import FilterItem from "./filterItem";
 
-import Filter from "@/assets/icons/Filter.svg?react";
-import ArrowDown from "@/assets/icons/ArrowDown.svg?react";
-import Reset from "@/assets/icons/Reset.svg?react";
-import SortAscendingCircle from "@/assets/icons/SortAscendingCircle.svg?react";
+import Filter from "../../../../../assets/icons/Filter.svg?react";
+import ArrowDown from "../../../../../assets/icons/ArrowDown.svg?react";
+import Reset from "../../../../../assets/icons/Reset.svg?react";
+import SortAscendingCircle from "../../../../../assets/icons/SortAscendingCircle.svg?react";
 
 interface FilterBarProps {
   onReset: () => void;

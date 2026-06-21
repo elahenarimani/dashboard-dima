@@ -1,9 +1,9 @@
-import Pending from "@/assets/icons/Pending.svg?react";
-import Sailes from "@/assets/icons/Sailes.svg?react";
-import Order from "@/assets/icons/Order.svg?react";
-import User from "@/assets/icons/User.svg?react";
-import TrendingUp from "@/assets/icons/TrendingUp.svg?react";
-import TrendingDown from "@/assets/icons/TrendingDown.svg?react";
+import Pending from "../assets/icons/Pending.svg?react";
+import Sailes from "../assets/icons/Sailes.svg?react";
+import Order from "../assets/icons/Order.svg?react";
+import User from "../assets/icons/User.svg?react";
+import TrendingUp from "../assets/icons/TrendingUp.svg?react";
+import TrendingDown from "../assets/icons/TrendingDown.svg?react";
 
 export const dashboardCards = [
   {

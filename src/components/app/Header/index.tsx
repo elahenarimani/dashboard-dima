@@ -1,7 +1,7 @@
-import ArrowDown from "@/assets/icons/ArrowDown.svg?react";
-import profilePic from "@/assets/icons/profilePic.jpg";
-import Notifiction from "@/assets/icons/Notifiction.svg?react";
-import dashboardLogo from "@/assets/icons/dashboardLogo.png";
+import ArrowDown from "../../../assets/icons/ArrowDown.svg?react";
+import profilePic from "../../../assets/icons/profilePic.jpg";
+import Notifiction from "../../../assets/icons/Notifiction.svg?react";
+import dashboardLogo from "../../../assets/icons/dashboardLogo.png";
 
 const Header: React.FC = () => {
   return (

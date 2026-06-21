@@ -4,8 +4,8 @@ import Toast from "../../../../../components/app/Toast";
 import Button from "../../../../../components/kit/Button";
 import Input from "../../../../../components/kit/Input";
 
-import Bin from "@/assets/icons/Bin.svg?react";
-import Star from "@/assets/icons/Star.svg?react";
+import Bin from "../../../../../assets/icons/Bin.svg?react";
+import Star from "../../../../../assets/icons/Star.svg?react";
 
 type CardProps = {
   title: string;
