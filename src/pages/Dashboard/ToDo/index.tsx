@@ -30,7 +30,7 @@ const ToDo: React.FC = () => {
       </div>
       {todos.data.length === 0 ? (
         <div className="flex w-full justify-center items-center">
-          <p className="text-center pt-50 font-extrabold font-3xl">
+          <p className="text-center pt-50 font-extrabold font-4xl">
             Not Found Any Todos
           </p>
         </div>

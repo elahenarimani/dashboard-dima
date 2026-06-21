@@ -38,8 +38,10 @@ const RenderLineChart = () => {
   }
   if (chartData.length === 0) {
     return (
-      <div className="flex justify-center items-center w-full h-full font-extrabold text-4xl">
-        <p>Not Found Any Chart</p>
+      <div className="flex w-full justify-center items-center">
+        <p className="text-center pt-25 font-extrabold font-4xl">
+          Not Found Any Chart
+        </p>
       </div>
     );
   }
@@ -81,7 +83,10 @@ const RenderLineChart = () => {
         <CartesianGrid horizontal={true} vertical={false} stroke="#e0e0e0" />
         {/* Pass the custom tooltip to the Tooltip component */}
         <Tooltip
-          formatter={(value) => [`${(Number(value) * 100000000).toLocaleString()}`, null]}
+          formatter={(value) => [
+            `${(Number(value) * 100000000).toLocaleString()}`,
+            null,
+          ]}
           labelFormatter={() => ""}
         />
         <Area

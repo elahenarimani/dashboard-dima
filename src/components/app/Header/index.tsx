@@ -22,7 +22,7 @@ const Header: React.FC = () => {
         </div>
         <div className="w-[40px] h-[40px] rounded-full overflow-hidden">
           <img
-            src="https://lh3.googleusercontent.com/ogw/AF2bZygF3ttTVH-asVQyJYwQGUceLwVczVRgvQDGmuniZYpMmP0=s64-c-mo"
+            src="https://lh3.googleusercontent.com/ogw/AF2bZygF3ttTVH-asVyJYwQGUceLwVczVRgvQDGmuniZYpMmP0=s64-c-mo"
             alt="profile pic"
             className="w-full h-full object-cover"
             onError={(e) => {
