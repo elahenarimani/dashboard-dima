@@ -2,9 +2,9 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { lazy } from "react";
 
-import AppRoot from "@/pages";
-import Dashboard from "@/pages/Dashboard";
-import Chart from "@/pages/Dashboard/Chart";
+import AppRoot from "../pages";
+import Dashboard from "../pages/Dashboard";
+import Chart from "../pages/Dashboard/Chart";
 
 
 
