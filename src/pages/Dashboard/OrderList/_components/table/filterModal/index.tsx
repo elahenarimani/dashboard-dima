@@ -7,13 +7,13 @@ import {
   type IFormState,
   type OrderStatus,
   type OrderType,
-} from "@/types/orderList";
+} from "../../../../../../types/orderList";
 
-import Button from "@/components/kit/Button";
+import Button from "../../../../../../components/kit/Button";
 
-import { useOrders } from "@/context/OrderContext";
+import { useOrders } from "../../../../../../context/OrderContext";
 
-import { ORDER_STATUSES, ORDER_TYPES } from "@/constants/orderData";
+import { ORDER_STATUSES, ORDER_TYPES } from "../../../../../../constants/orderData";
 import "./filterModal.css";
 
 type FilterModalTypes = {

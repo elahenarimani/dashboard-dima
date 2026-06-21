@@ -1,4 +1,4 @@
-import type { ActiveModalType } from "@/types/orderList";
+import type { ActiveModalType } from "../../../../../types/orderList";
 
 import FilterItem from "./filterItem";
 

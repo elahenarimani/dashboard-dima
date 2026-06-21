@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useOrders } from "@/context/OrderContext";
+import { useOrders } from "../../../context/OrderContext";
 
-import type { ActiveModalType } from "@/types/orderList";
-import { data, itemsPerPage } from "@/constants/orderData";
+import type { ActiveModalType } from "../../../types/orderList";
+import { data, itemsPerPage } from "../../../constants/orderData";
 
 import Table from "./_components/table";
 import FilterBar from "./_components/filterBar";

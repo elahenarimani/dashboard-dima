@@ -1,6 +1,6 @@
 import RenderLineChart from "./_components/renderLineChart/renderLineChart";
 
-import { dashboardCards } from "@/constants/chart";
+import { dashboardCards } from "../../../constants/chart";
 
 import DashboardCard from "./_components/DashboardCard";
 

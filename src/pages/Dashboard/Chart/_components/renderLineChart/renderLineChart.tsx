@@ -8,9 +8,9 @@ import {
   Tooltip,
 } from "recharts";
 
-import { getChartData } from "@/services/chart";
+import { getChartData } from "../../../../../services/chart";
 import { useEffect, useState } from "react";
-import type { IChartData } from "@/types/chart";
+import type { IChartData } from "../../../../../types/chart";
 
 const RenderLineChart = () => {
   const [chartData, setChartData] = useState<IChartData[]>([]);

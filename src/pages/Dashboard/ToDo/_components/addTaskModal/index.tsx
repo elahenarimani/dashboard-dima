@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-import Button from "@/components/kit/Button";
-import Input from "@/components/kit/Input";
+import Button from "../../../../../components/kit/Button";
+import Input from "../../../../../components/kit/Input";
 
-import type { CreateTodo } from "@/types/todo";
-import Toast from "@/components/app/Toast";
+import type { CreateTodo } from "../../../../../types/todo";
+import Toast from "../../../../../components/app/Toast";
 
 type AddTaskModalTypes = {
   activeModal: boolean;

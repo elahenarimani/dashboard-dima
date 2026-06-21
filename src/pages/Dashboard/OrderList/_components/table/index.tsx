@@ -6,7 +6,7 @@ import type {
   IFormState,
   Order,
   OrderStatus,
-} from "@/types/orderList";
+} from "../../../../../types/orderList";
 
 import FilterModal from "./filterModal";
 

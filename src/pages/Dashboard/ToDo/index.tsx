@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-import Button from "@/components/kit/Button";
+import Button from "../../../components/kit/Button";
 import AddTaskModal from "./_components/addTaskModal";
 import Card from "./_components/card";
 
-import useTodos from "@/hooks/useTodos";
+import useTodos from "../../../hooks/useTodos";
 
 const ToDo: React.FC = () => {
   const todos = useTodos();

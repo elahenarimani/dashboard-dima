@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 
 import DashboardNav from "./_components/DashboardNav";
-import Header from "@/components/app/Header";
+import Header from "../../components/app/Header";
 
 const Dashboard: React.FC = () => {
   return (

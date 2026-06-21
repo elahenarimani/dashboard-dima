@@ -1,10 +1,10 @@
 import ArrowLeft from "@/assets/icons/ArrowLeft.svg?react";
 import ArrowRight from "@/assets/icons/arrowRight.svg?react";
 
-import Button from "@/components/kit/Button";
+import Button from "../../../../../components/kit/Button";
 
-import { itemsPerPage } from "@/constants/orderData";
-import { useOrders } from "@/context/OrderContext";
+import { itemsPerPage } from "../../../../../constants/orderData";
+import { useOrders } from "../../../../../context/OrderContext";
 
 interface PaginationProps {
   page: number;
